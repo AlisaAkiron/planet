@@ -1,3 +1,5 @@
+import { isProduction } from '@/lib/env'
+
 import { PlanetConfig } from './types'
 
 const config: PlanetConfig = {
@@ -7,11 +9,11 @@ const config: PlanetConfig = {
     description: 'Slient Space',
     keywords: ['Alisa', 'blog'],
     robots: {
-      index: false,
-      follow: false,
+      index: isProduction,
+      follow: isProduction,
       googleBot: {
-        index: false,
-        follow: false,
+        index: isProduction,
+        follow: isProduction,
       },
     },
   },
