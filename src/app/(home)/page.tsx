@@ -36,21 +36,24 @@ const Home: FC = () => {
               initialDelay={headingAnimationDuration}
             />
           </div>
-          <ul className="mx-[60px] mt-8 flex flex-wrap items-center justify-center gap-4 lg:mx-auto lg:mt-28 lg:justify-start">
+          <ul className="mx-[60px] mt-4 flex flex-wrap items-center justify-center gap-4 lg:mx-auto lg:mt-16 lg:justify-start">
             {socialMedia.map((media, index) => {
               return (
-                <PopupTransition
-                  key={media.url}
-                  initialDelay={
-                    headingAnimationDuration +
-                    descriptionAnimationDuration +
-                    index * 0.2
-                  }
-                >
-                  <li>
-                    <SocialLink {...media} />
-                  </li>
-                </PopupTransition>
+                <li key={media.url}>
+                  <PopupTransition
+                    initialDelay={
+                      headingAnimationDuration +
+                      descriptionAnimationDuration +
+                      index * 0.2
+                    }
+                  >
+                    <SocialLink
+                      {...media}
+                      buttonClassName="w-[35px] h-[35px]"
+                      svgClassName="w-[21px] h-[21px]"
+                    />
+                  </PopupTransition>
+                </li>
               )
             })}
           </ul>
@@ -61,7 +64,7 @@ const Home: FC = () => {
             width="300"
             height="300"
             alt="Avatar"
-            className="rounded-full"
+            className="h-60 w-60 rounded-full lg:h-72 lg:w-72"
             priority
           />
         </HomeSide>

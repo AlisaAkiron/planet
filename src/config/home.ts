@@ -10,7 +10,7 @@ const home: Home = {
       },
       {
         type: 'h1',
-        text: 'Alisa Akiron',
+        text: 'Alisa',
         class: 'font-medium mx-2 text-4xl',
       },
       {
@@ -33,16 +33,16 @@ const home: Home = {
     ],
     socialMedia: [
       {
-        url: 'https://github.com/AlisaAkiron',
-        icon: 'github',
-        color: '#181818',
-        tooltip: '@AlisaAkiron',
-      },
-      {
         url: 'https://space.bilibili.com/5627849',
         icon: 'bilibili',
         color: '#00A1D6',
         tooltip: '@Alisa_Akiron',
+      },
+      {
+        url: 'https://github.com/AlisaAkiron',
+        icon: 'github',
+        color: '#181818',
+        tooltip: '@AlisaAkiron',
       },
       {
         url: 'mailto:alisa@alisaqaq.moe',
