@@ -11,3 +11,6 @@ export type FCCD<T = {}> = FCC<
 >
 
 export type HTML<T> = FC<HTMLElementProps<T>>
+export type JSXC<T extends keyof JSX.IntrinsicElements, K = {}> = FC<
+  K & JSX.IntrinsicElements[T]
+>
