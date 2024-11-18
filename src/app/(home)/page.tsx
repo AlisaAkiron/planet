@@ -62,6 +62,7 @@ const Home: FC = () => {
             height="300"
             alt="Avatar"
             className="rounded-full"
+            priority
           />
         </HomeSide>
       </HeroContent>

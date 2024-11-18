@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import * as Fa6Icons from 'react-icons/fa6'
+import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
 
@@ -16,8 +16,6 @@ export const SocialLink: FC<SocialLinkProps> = ({
   color,
   tooltip,
 }) => {
-  // @ts-ignore
-  const Icon = Fa6Icons[icon]
   const hasTooltip = tooltip !== undefined && tooltip != ''
 
   return (
@@ -33,7 +31,13 @@ export const SocialLink: FC<SocialLinkProps> = ({
           style={{ backgroundColor: color }}
         >
           <a href={url} target="_blank">
-            <Icon className="h-6 w-6" color="white" />
+            <Image
+              className="h-6 w-6 invert filter"
+              src={`/icons/${icon}.svg`}
+              width={24}
+              height={24}
+              alt={`Icon for ${icon}`}
+            />
           </a>
         </button>
       </div>
