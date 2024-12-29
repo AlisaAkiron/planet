@@ -47,11 +47,7 @@ const Home: FC = () => {
                       index * 0.2
                     }
                   >
-                    <SocialLink
-                      {...media}
-                      buttonClassName="w-[35px] h-[35px]"
-                      svgClassName="w-[21px] h-[21px]"
-                    />
+                    <SocialLink {...media} />
                   </PopupTransition>
                 </li>
               )
