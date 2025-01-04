@@ -2,10 +2,14 @@ import { ThemeProvider } from 'next-themes'
 
 import { FCC } from '@/types'
 
+import { SWRProvider } from './swr-provider'
+
 export const Providers: FCC = ({ children }) => {
   return (
     <>
-      <ThemeProvider>{children}</ThemeProvider>
+      <SWRProvider>
+        <ThemeProvider>{children}</ThemeProvider>
+      </SWRProvider>
     </>
   )
 }

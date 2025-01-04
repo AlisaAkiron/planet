@@ -8,7 +8,37 @@ const config: Config = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   prefix: '',
-  theme: {},
+  theme: {
+    extend: {
+      keyframes: {
+        slideDownAndFade: {
+          from: { opacity: '0', transform: 'translateY(-2px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideLeftAndFade: {
+          from: { opacity: '0', transform: 'translateX(2px)' },
+          to: { opacity: '1', transform: 'translateX(0)' },
+        },
+        slideUpAndFade: {
+          from: { opacity: '0', transform: 'translateY(2px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideRightAndFade: {
+          from: { opacity: '0', transform: 'translateX(-2px)' },
+          to: { opacity: '1', transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        slideDownAndFade:
+          'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideLeftAndFade:
+          'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideRightAndFade:
+          'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+    },
+  },
   darkMode: ['selector', '[data-theme="dark]'],
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
   daisyui: {
@@ -20,7 +50,7 @@ const config: Config = {
           secondary: '#fde047',
           accent: '#60a5fa',
           neutral: '#fecdd3',
-          'base-100': '#e9e9e9',
+          'base-100': '#f1f1f1',
           info: '#93c5fd',
           success: '#73d7b2',
           warning: '#fbbf24',
