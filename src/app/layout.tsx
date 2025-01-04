@@ -8,6 +8,7 @@ import { FC } from 'react'
 import { PublicEnvScript } from 'next-runtime-env'
 
 import { Providers } from '@/components/providers'
+import { Footer } from '@/components/shared/footer'
 import { FCC } from '@/types'
 
 export const metadata: Metadata = cfg.meta
@@ -20,7 +21,10 @@ const RootLayout: FCC = ({ children }) => {
         <PublicEnvScript />
       </head>
       <body className="font-sans antialiased">
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   )
