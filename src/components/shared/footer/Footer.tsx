@@ -13,7 +13,7 @@ export const Footer: FC = () => {
       : `${f.copyright.startYear}-${currentYear}`
 
   return (
-    <footer className="relative z-[1] mt-16 border-t border-gray-300 py-8 text-sm text-base-content/80 dark:border-gray-600">
+    <footer className="text-base-content/80 relative z-[1] mt-16 border-t border-gray-300 py-8 text-sm dark:border-gray-600">
       <div className="px-4 sm:px-8">
         <div className="relative mx-auto max-w-7xl lg:px-8">
           <div className="mt-12 space-y-3 text-center md:mt-6 md:text-left">
