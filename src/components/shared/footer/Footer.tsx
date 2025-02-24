@@ -2,6 +2,7 @@
 
 import { FC } from 'react'
 
+import { ThemeSwitch } from '@/components/ui/theme-switch'
 import cfg from '@/config'
 
 export const Footer: FC = () => {
@@ -84,11 +85,11 @@ export const Footer: FC = () => {
             </p>
           </div>
 
-          {/* <div className="mt-6 block text-center md:absolute md:bottom-0 md:right-0 md:mt-0">
+          <div className="mt-6 block text-center md:absolute md:right-0 md:bottom-0 md:mt-0">
             <div className="relative inline-block">
               <ThemeSwitch />
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </footer>
