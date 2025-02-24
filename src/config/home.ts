@@ -22,7 +22,7 @@ const home: Home = {
     description: [
       {
         type: 'span',
-        text: 'Backend Developer',
+        text: 'Fullstack Developer',
         class: 'text-lg',
       },
       {

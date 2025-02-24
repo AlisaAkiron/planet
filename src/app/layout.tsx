@@ -9,6 +9,7 @@ import { PublicEnvScript } from 'next-runtime-env'
 
 import { Providers } from '@/components/providers'
 import { Footer } from '@/components/shared/footer'
+import { MenuBar } from '@/components/shared/menu-bar'
 import { FCC } from '@/types'
 
 export const metadata: Metadata = cfg.meta
@@ -19,9 +20,11 @@ const RootLayout: FCC = ({ children }) => {
       <head>
         <WebsiteIcons />
         <PublicEnvScript />
+        <ReactScanScript />
       </head>
       <body className="font-sans antialiased">
         <Providers>
+          <MenuBar />
           {children}
           <Footer />
         </Providers>
@@ -54,6 +57,16 @@ const WebsiteIcons: FC = () => {
       />
       <link rel="manifest" href="/site.webmanifest" />
     </>
+  )
+}
+
+const ReactScanScript: FC = () => {
+  return (
+    // eslint-disable-next-line @next/next/no-sync-scripts
+    <script
+      crossOrigin="anonymous"
+      src="//unpkg.com/react-scan/dist/auto.global.js"
+    />
   )
 }
 
