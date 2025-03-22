@@ -1,26 +1,25 @@
 'use client'
 
-import { FC } from 'react'
 import Image from 'next/image'
+import type { FC } from 'react'
 
 import {
-  estimateTypewriterDuration,
   PopupTransition,
   Typewriter,
-  TypewriterTemplate,
+  type TypewriterTemplate,
+  estimateTypewriterDuration,
 } from '@/components/animation'
 import { HeroContainer, HeroContent } from '@/components/layout'
 import { SocialLink } from '@/components/ui/button'
 import cfg from '@/config'
-import { FCC } from '@/types'
+import type { FCC } from '@/types'
 
 const headingTemplate = cfg.home.intro.heading as TypewriterTemplate[]
 const descriptionTemplate = cfg.home.intro.description as TypewriterTemplate[]
 const socialMedia = cfg.home.intro.socialMedia
 
 const headingAnimationDuration = estimateTypewriterDuration(headingTemplate)
-const descriptionAnimationDuration =
-  estimateTypewriterDuration(descriptionTemplate)
+const descriptionAnimationDuration = estimateTypewriterDuration(descriptionTemplate)
 
 const Home: FC = () => {
   return (
@@ -31,22 +30,13 @@ const Home: FC = () => {
             <Typewriter template={headingTemplate} />
           </div>
           <div className="my-6 text-center lg:text-left">
-            <Typewriter
-              template={descriptionTemplate}
-              initialDelay={headingAnimationDuration}
-            />
+            <Typewriter template={descriptionTemplate} initialDelay={headingAnimationDuration} />
           </div>
           <ul className="mx-[60px] mt-4 flex flex-wrap items-center justify-center gap-4 lg:mx-auto lg:mt-16 lg:justify-start">
             {socialMedia.map((media, index) => {
               return (
                 <li key={media.url}>
-                  <PopupTransition
-                    initialDelay={
-                      headingAnimationDuration +
-                      descriptionAnimationDuration +
-                      index * 0.2
-                    }
-                  >
+                  <PopupTransition initialDelay={headingAnimationDuration + descriptionAnimationDuration + index * 0.2}>
                     <SocialLink {...media} />
                   </PopupTransition>
                 </li>

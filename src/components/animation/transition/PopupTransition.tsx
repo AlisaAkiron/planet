@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
 
-import { FCC } from '@/types'
+import type { FCC } from '@/types'
 
 type PopupTransitionProps = {
   initialDelay?: number
@@ -8,12 +8,7 @@ type PopupTransitionProps = {
   initialScale?: number
 }
 
-export const PopupTransition: FCC<PopupTransitionProps> = ({
-  children,
-  initialDelay,
-  duration,
-  initialScale,
-}) => {
+export const PopupTransition: FCC<PopupTransitionProps> = ({ children, initialDelay, duration, initialScale }) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: initialScale || 0.8 }}

@@ -1,4 +1,4 @@
-import { Footer } from './types/footer'
+import type { Footer } from './types/footer'
 
 const footer: Footer = {
   copyright: {

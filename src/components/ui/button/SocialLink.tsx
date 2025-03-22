@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import Image from 'next/image'
+import type { FC } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -21,13 +21,10 @@ export const SocialLink: FC<SocialLinkProps> = ({
   return (
     <>
       <button
-        className={cn(
-          'inline-flex items-center justify-center rounded-full border-0',
-          buttonClassName,
-        )}
+        className={cn('inline-flex items-center justify-center rounded-full border-0', buttonClassName)}
         style={{ backgroundColor: color }}
       >
-        <a href={url} target="_blank">
+        <a href={url} target="_blank" rel="noreferrer">
           <Image
             className={cn('invert filter', imageClassName)}
             src={`/icons/${icon}.svg`}

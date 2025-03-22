@@ -1,4 +1,4 @@
-import { Home } from './types/home'
+import type { Home } from './types/home'
 
 const home: Home = {
   intro: {

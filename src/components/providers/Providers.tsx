@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'next-themes'
 
-import { FCC } from '@/types'
+import type { FCC } from '@/types'
 
 import { SWRProvider } from './swr-provider'
 

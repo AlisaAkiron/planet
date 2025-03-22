@@ -1,7 +1,7 @@
 'use client'
 
-import { FC } from 'react'
 import Link from 'next/link'
+import type { FC } from 'react'
 
 import { Menu } from './menu'
 
@@ -29,7 +29,7 @@ export const MenuBar: FC = () => {
           <Menu />
         </ul>
       </div>
-      <div className="navbar-end"></div>
+      <div className="navbar-end">{}</div>
     </div>
   )
 }

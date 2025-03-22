@@ -1,7 +1,7 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
-import { Footer } from './footer'
-import { Home } from './home'
+import type { Footer } from './footer'
+import type { Home } from './home'
 
 export type PlanetConfig = {
   meta: Metadata

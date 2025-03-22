@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
 
-import { JSXC } from '@/types'
+import type { JSXC } from '@/types'
 
 export const TextUpTransition: JSXC<
   'div',

@@ -1,9 +1,9 @@
-import { FC, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { type FC, useCallback } from 'react'
 
 import { cn } from '@/lib/utils'
-import { FCC } from '@/types'
+import type { FCC } from '@/types'
 
 type MenuItem = {
   name: string
@@ -72,26 +72,25 @@ const MenuDropDown: FC<{
   const path = usePathname()
   const router = useRouter()
 
-  const mainElementClicked = useCallback((url: string) => {
-    router.push(url)
-  }, [])
+  const mainElementClicked = useCallback(
+    (url: string) => {
+      router.push(url)
+    },
+    [router],
+  )
 
-  if (menuItem.children.length == 0) {
+  if (menuItem.children.length === 0) {
     return (
-      <Link
-        href={menuItem.url || ''}
-        className="flex w-full items-center justify-center"
-      >
+      <Link href={menuItem.url || ''} className="flex w-full items-center justify-center">
         {menuItem.name}
       </Link>
     )
   }
 
   const mainElementName =
-    menuItem.url === undefined || path == '/'
+    menuItem.url === undefined || path === '/'
       ? menuItem.name
-      : (menuItem.children.find((item) => item.url.startsWith(path))?.name ??
-        menuItem.name)
+      : (menuItem.children.find(item => item.url.startsWith(path))?.name ?? menuItem.name)
 
   return (
     <div
@@ -110,18 +109,12 @@ const MenuDropDown: FC<{
         {menuItem.children.map((item, index) => (
           <li key={index} className={cn(item.enable ? '' : 'menu-disabled')}>
             {item.enable ? (
-              <Link
-                href={item.url || ''}
-                className="flex w-full items-center justify-center"
-              >
+              <Link href={item.url || ''} className="flex w-full items-center justify-center">
                 {item.name}
               </Link>
             ) : (
               <WIPIndicator>
-                <Link
-                  href={item.url || ''}
-                  className="flex w-full items-center justify-center"
-                >
+                <Link href={item.url || ''} className="flex w-full items-center justify-center">
                   {item.name}
                 </Link>
               </WIPIndicator>

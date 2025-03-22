@@ -37,10 +37,7 @@ export const Typewriter: FC<{
           type,
           { key: i, className: t.class },
           t.text && (
-            <TextUpTransition
-              initialDelay={prevAllTextLength * 0.05 + (initialDelay || 0)}
-              eachDelay={0.05}
-            >
+            <TextUpTransition initialDelay={prevAllTextLength * 0.05 + (initialDelay || 0)} eachDelay={0.05}>
               {t.text}
             </TextUpTransition>
           ),
