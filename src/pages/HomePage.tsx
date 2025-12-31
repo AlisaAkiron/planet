@@ -73,6 +73,13 @@ const socialMedia = [
     tooltip: '@alisaqaq',
     invert: false,
   },
+  {
+    url: 'https://qm.qq.com/q/2VkT7DtVc4',
+    icon: 'qq',
+    color: '#12B7F5',
+    tooltip: 'QQ',
+    invert: false,
+  },
 ]
 
 const headingAnimationDuration = estimateTypewriterDuration(heading)
