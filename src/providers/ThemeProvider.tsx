@@ -16,8 +16,14 @@ const ThemeContext = createContext<{
 
 export const useThemeContext = () => useContext(ThemeContext)
 
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const osTheme = useColorScheme('light', { getInitialValueInEffect: true })
+export const ThemeProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
+  const osTheme = useColorScheme('light', {
+    getInitialValueInEffect: true,
+  })
 
   const [theme, setThemeSettings] = useLocalStorage<Theme>({
     key: 'planet-theme',
@@ -41,7 +47,11 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ theme: theme, activeTheme: activeTheme, setTheme: setTheme }}
+      value={{
+        theme: theme,
+        activeTheme: activeTheme,
+        setTheme: setTheme,
+      }}
     >
       {children}
     </ThemeContext.Provider>

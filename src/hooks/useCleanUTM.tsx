@@ -1,41 +1,38 @@
+import { useNavigate, useRouter } from '@tanstack/react-router'
 import { useEffect } from 'react'
-import { useLocation, useSearch, useSearchParams } from 'wouter'
-import { useUmamiAnalyticsContext } from '@/lib/UmamiAnalytic'
 
 export const useCleanUTM = () => {
-  const { isLoaded, hasError } = useUmamiAnalyticsContext()
-  const [location, navigate] = useLocation()
-  const search = useSearch()
-  const [, setSearchParams] = useSearchParams()
+  const router = useRouter()
+  const navigate = useNavigate()
+  const pathname = router.state.location.pathname
 
-  /* eslint-disable react-hooks/exhaustive-deps -- Only run this when location changes */
   useEffect(() => {
-    if (!isLoaded || hasError) return
+    const searchString = window.location.search
+    if (!searchString || !searchString.includes('utm_')) return
 
-    if (search.includes('utm_')) {
-      const keysToDelete = []
-      const params = new URLSearchParams(search)
+    const params = new URLSearchParams(searchString)
+    const keysToDelete: string[] = []
 
-      for (const key of params.keys()) {
-        if (key.startsWith('utm_')) {
-          keysToDelete.push(key)
-        }
-      }
-
-      if (keysToDelete.length > 0) {
-        keysToDelete.forEach(key => {
-          params.delete(key)
-        })
-
-        // Prevent the ? character from showing up when there are no other params
-        if (params.size === 0) {
-          navigate(location, { replace: true })
-          return
-        }
-
-        setSearchParams(params, { replace: true })
+    for (const key of params.keys()) {
+      if (key.startsWith('utm_')) {
+        keysToDelete.push(key)
       }
     }
-  }, [location, isLoaded, hasError])
-  /* eslint-enable react-hooks/exhaustive-deps */
+
+    if (keysToDelete.length === 0) return
+
+    for (const key of keysToDelete) {
+      params.delete(key)
+    }
+
+    if (params.size === 0) {
+      navigate({ to: pathname, replace: true })
+    } else {
+      navigate({
+        to: pathname,
+        search: Object.fromEntries(params),
+        replace: true,
+      })
+    }
+  }, [pathname, navigate])
 }

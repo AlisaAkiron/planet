@@ -12,6 +12,17 @@ dist
 dist-ssr
 *.local
 
+# TanStack Router (auto-generated)
+src/routeTree.gen.ts
+
+# Cloudflare
+.wrangler
+.dev.vars
+
+# AI assistant config
+CLAUDE.md
+docs/
+
 # Editor directories and files
 .idea
 .DS_Store

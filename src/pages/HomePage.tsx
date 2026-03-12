@@ -5,7 +5,6 @@ import {
 } from '@/components/animation'
 import { SocialLink } from '@/components/ui/button'
 import { cn } from '@/utils/cn'
-import { DefaultLayout } from '../layout/DefaultLayout'
 
 const heading = [
   {
@@ -80,7 +79,7 @@ const descriptionAnimationDuration = estimateTypewriterDuration(description)
 
 export const HomePage = () => {
   return (
-    <DefaultLayout className="flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
       <div
         className={cn(
           'flex items-center justify-center',
@@ -130,6 +129,6 @@ export const HomePage = () => {
           />
         </div>
       </div>
-    </DefaultLayout>
+    </div>
   )
 }
