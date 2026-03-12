@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: Umami inject window.umami and need window as any to check */
+/* eslint-disable @typescript-eslint/no-explicit-any -- Umami inject window.umami and need window as any to check */
 
 import { useCallback, useMemo } from 'react'
 import type { PageviewData, UTMFetcher } from './types'

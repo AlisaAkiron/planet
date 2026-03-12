@@ -8,7 +8,7 @@ export const useCleanUTM = () => {
   const search = useSearch()
   const [, setSearchParams] = useSearchParams()
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Only run this when location changes
+  /* eslint-disable react-hooks/exhaustive-deps -- Only run this when location changes */
   useEffect(() => {
     if (!isLoaded || hasError) return
 
@@ -37,4 +37,5 @@ export const useCleanUTM = () => {
       }
     }
   }, [location, isLoaded, hasError])
+  /* eslint-enable react-hooks/exhaustive-deps */
 }

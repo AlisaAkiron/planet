@@ -37,7 +37,7 @@ export interface PageviewData {
   utm_term?: string
   utm_content?: string
   utm_id?: string
-  // biome-ignore lint/suspicious/noExplicitAny: Unami accepts any additional custom properties
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Umami accepts any additional custom properties
   [key: string]: any
 }
 
