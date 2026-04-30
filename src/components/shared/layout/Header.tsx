@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router'
 
 export const Header = () => {
   return (
-    <header className="navbar fixed top-0 right-0 left-0 z-50 h-[4rem]">
+    <header className="navbar fixed top-0 right-0 left-0 z-50 h-16">
       <div className="navbar-start">
         <Link to="/" className="btn btn-ghost text-xl">
           迷いの森

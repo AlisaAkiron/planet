@@ -12,7 +12,7 @@ export const Footer = () => {
   return (
     <footer
       className={cn(
-        'relative z-[1] py-10 px-4 sm:px-10 mt-6',
+        'relative z-1 py-10 px-4 sm:px-10 mt-6',
         'border-t border-gray-300 dark:border-gray-600',
         'text-base-content/80 text-sm',
       )}

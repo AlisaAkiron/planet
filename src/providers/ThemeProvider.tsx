@@ -16,11 +16,7 @@ const ThemeContext = createContext<{
 
 export const useThemeContext = () => useContext(ThemeContext)
 
-export const ThemeProvider = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const osTheme = useColorScheme('light', {
     getInitialValueInEffect: true,
   })
@@ -37,8 +33,8 @@ export const ThemeProvider = ({
     return theme
   }, [osTheme, theme])
 
-  const setTheme = (theme: Theme) => {
-    setThemeSettings(theme)
+  const setTheme = (t: Theme) => {
+    setThemeSettings(t)
   }
 
   useEffect(() => {

@@ -13,7 +13,7 @@ export const DefaultLayout = ({
       <Header />
       <main
         className={cn(
-          'relative z-[1] px-4 md:px-0 pb-4 md:pb-0 pt-[4rem] min-h-screen',
+          'relative z-1 px-4 md:px-0 pb-4 md:pb-0 pt-16 min-h-screen',
           className,
         )}
       >

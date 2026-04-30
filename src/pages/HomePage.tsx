@@ -36,48 +36,22 @@ const description = [
   },
 ]
 
-const socialMedia = [
-  {
-    url: 'https://space.bilibili.com/5627849',
-    icon: 'bilibili',
-    color: '#00A1D6',
-    tooltip: '@Alisa_Akiron',
-    invert: true,
-  },
-  {
-    url: 'https://github.com/AlisaAkiron',
-    icon: 'github',
-    color: '#181818',
-    tooltip: '@AlisaAkiron',
-    invert: true,
-  },
-  {
-    url: 'mailto:alisa@alisaqaq.moe',
-    icon: 'envelope',
-    color: '#D44638',
-    tooltip: 'alisa@alisaqaq.moe',
-    invert: true,
-  },
-  {
-    url: 'https://git.alisaqaq.moe',
-    icon: 'gitlab',
-    color: '#FC6D26',
-    tooltip: 'Alisa Lab Codebin',
-    invert: true,
-  },
-  {
-    url: 'https://x.com/alisaqaq',
-    icon: 'x',
-    color: '#000000',
-    tooltip: '@alisaqaq',
-    invert: false,
-  },
-]
+export type SocialMedia = {
+  url: string
+  icon: string
+  color: string
+  tooltip: string
+  invert: boolean
+}
 
 const headingAnimationDuration = estimateTypewriterDuration(heading)
 const descriptionAnimationDuration = estimateTypewriterDuration(description)
 
-export const HomePage = () => {
+type HomePageProps = {
+  socialMedia: SocialMedia[]
+}
+
+export const HomePage = ({ socialMedia }: HomePageProps) => {
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
       <div
