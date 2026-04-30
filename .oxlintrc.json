@@ -7,7 +7,6 @@
   },
   "rules": {
     "typescript/no-non-null-assertion": "off",
-    "no-useless-else": "off",
     "jsx-a11y/prefer-tag-over-role": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/mouse-events-have-key-events": "off",
