@@ -12,30 +12,31 @@
     "format": "oxfmt --write ."
   },
   "dependencies": {
-    "@mantine/hooks": "^9.1.1",
-    "@tanstack/react-router": "^1.168.26",
-    "@tanstack/react-start": "^1.167.52",
+    "@mantine/hooks": "^9.3.1",
+    "@rybbit/js": "^0.6.2",
+    "@tanstack/react-router": "^1.170.15",
+    "@tanstack/react-start": "^1.168.25",
     "clsx": "^2.1.1",
-    "motion": "^12.38.0",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "tailwind-merge": "^3.5.0"
+    "motion": "^12.40.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.34.0",
-    "@tailwindcss/postcss": "^4.2.4",
-    "@tailwindcss/typography": "^0.5.19",
-    "@types/react": "^19.2.14",
+    "@cloudflare/vite-plugin": "^1.40.2",
+    "@tailwindcss/postcss": "^4.3.1",
+    "@tailwindcss/typography": "^0.5.20",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "daisyui": "^5.5.19",
-    "globals": "^17.5.0",
-    "oxfmt": "^0.47.0",
-    "oxlint": "^1.62.0",
-    "postcss": "^8.5.12",
-    "tailwindcss": "^4.2.4",
+    "@vitejs/plugin-react": "^6.0.2",
+    "daisyui": "^5.5.23",
+    "globals": "^17.6.0",
+    "oxfmt": "^0.55.0",
+    "oxlint": "^1.70.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
-    "vite": "^8.0.10",
-    "wrangler": "^4.86.0"
+    "vite": "^8.0.16",
+    "wrangler": "^4.100.0"
   }
 }
