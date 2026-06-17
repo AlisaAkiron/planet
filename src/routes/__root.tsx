@@ -7,8 +7,8 @@ import {
 import type { ReactNode } from 'react'
 import { useCleanUTM } from '@/hooks/useCleanUTM'
 import { DefaultLayout } from '@/layout/DefaultLayout'
+import { RybbitProvider } from '@/providers/RybbitProvider'
 import { ThemeProvider } from '@/providers/ThemeProvider'
-import { UmamiProvider } from '@/providers/UmamiProvider'
 import appCss from '@/styles/index.css?url'
 
 export const Route = createRootRoute({
@@ -32,25 +32,6 @@ export const Route = createRootRoute({
       },
       { rel: 'manifest', href: '/site.webmanifest' },
     ],
-    scripts: import.meta.env.PROD
-      ? [
-          {
-            src: 'https://umami.alisaqaq.moe/script.js',
-            defer: true,
-            async: true,
-            'data-website-id': 'ba92d41a-ee5c-4f25-8ff6-d3e8c9728ce9',
-            'data-domains': 'alisaqaq.moe',
-          },
-        ]
-      : [
-          {
-            src: 'https://umami.alisaqaq.moe/script.js',
-            defer: true,
-            async: true,
-            'data-website-id': 'b4dbc717-e2d5-463d-943b-8d64f7c9e491',
-            'data-domains': 'localhost',
-          },
-        ],
   }),
   notFoundComponent: NotFoundPage,
   component: RootComponent,
@@ -61,13 +42,13 @@ function RootComponent() {
 
   return (
     <RootDocument>
-      <UmamiProvider>
+      <RybbitProvider>
         <ThemeProvider>
           <DefaultLayout>
             <Outlet />
           </DefaultLayout>
         </ThemeProvider>
-      </UmamiProvider>
+      </RybbitProvider>
     </RootDocument>
   )
 }
