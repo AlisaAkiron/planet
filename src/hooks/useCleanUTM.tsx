@@ -1,10 +1,9 @@
-import { useRouter } from '@tanstack/react-router'
+import { useRouterState } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { rybbitReady } from '@/lib/rybbit/client'
 
 export const useCleanUTM = () => {
-  const router = useRouter()
-  const pathname = router.state.location.pathname
+  const pathname = useRouterState({ select: s => s.location.pathname })
 
   useEffect(() => {
     const hasUtm = [...new URLSearchParams(window.location.search).keys()].some(
@@ -12,9 +11,10 @@ export const useCleanUTM = () => {
     )
     if (!hasUtm) return
 
-    // URL — it reads the URL (including utm_ params) on a requestAnimationFrame
-    // after init, so stripping early loses campaign attribution. `cancelled`
-    // guards against the component unmounting or the route changing while we wait.
+    // Wait for Rybbit's initial pageview before rewriting the URL — it reads
+    // the URL (including utm_ params) on a requestAnimationFrame after init,
+    // so stripping early loses campaign attribution. `cancelled` guards
+    // against the component unmounting or the route changing while we wait.
     let cancelled = false
     rybbitReady.then(() => {
       if (cancelled) return

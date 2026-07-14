@@ -13,7 +13,7 @@ export const Footer = () => {
     <footer
       className={cn(
         'relative z-1 py-10 px-4 sm:px-10 mt-6',
-        'border-t border-gray-300 dark:border-gray-600',
+        'border-t border-base-300',
         'text-base-content/80 text-sm',
       )}
     >

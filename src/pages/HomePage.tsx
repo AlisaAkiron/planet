@@ -8,17 +8,17 @@ import { cn } from '@/utils/cn'
 
 const heading = [
   {
-    type: 'h1',
+    type: 'span',
     text: "Hi, I'm ",
     class: 'font-light text-4xl',
   },
   {
-    type: 'h1',
+    type: 'span',
     text: 'Alisa',
     class: 'font-medium mx-2 text-4xl',
   },
   {
-    type: 'h1',
+    type: 'span',
     text: '👋。',
     class: 'font-light text-4xl',
   },
@@ -27,12 +27,12 @@ const description = [
   {
     type: 'span',
     text: 'Fullstack Developer',
-    class: 'text-lg',
+    class: 'block text-lg',
   },
   {
     type: 'span',
     text: 'Kigurumi Enthusiast',
-    class: 'text-lg',
+    class: 'block text-lg',
   },
 ]
 
@@ -65,6 +65,7 @@ export const HomePage = ({ socialMedia }: HomePageProps) => {
         <div className="lg:w-1/2 flex flex-col items-center justify-center">
           <div className="text-center lg:text-left">
             <Typewriter
+              as="h1"
               template={heading}
               className="leading-4 [&_*]:inline-block"
             />
@@ -76,18 +77,17 @@ export const HomePage = ({ socialMedia }: HomePageProps) => {
             <ul className="mt-4 flex flex-wrap items-center justify-center gap-4 lg:mt-16 lg:justify-start">
               {socialMedia.map((platform, index) => {
                 return (
-                  <PopupTransition
-                    key={index}
-                    initialDelay={
-                      headingAnimationDuration +
-                      descriptionAnimationDuration +
-                      index * 0.2
-                    }
-                  >
-                    <li key={index}>
+                  <li key={platform.url}>
+                    <PopupTransition
+                      initialDelay={
+                        headingAnimationDuration +
+                        descriptionAnimationDuration +
+                        index * 0.2
+                      }
+                    >
                       <SocialLink {...platform} />
-                    </li>
-                  </PopupTransition>
+                    </PopupTransition>
+                  </li>
                 )
               })}
             </ul>
@@ -99,6 +99,7 @@ export const HomePage = ({ socialMedia }: HomePageProps) => {
           <img
             alt="Avatar"
             src="/avatar.webp"
+            fetchPriority="high"
             className="h-60 w-60 rounded-full lg:h-72 lg:w-72"
           />
         </div>

@@ -1,9 +1,11 @@
 import {
   HeadContent,
+  Link,
   Outlet,
   Scripts,
   createRootRoute,
 } from '@tanstack/react-router'
+import { LazyMotion, MotionConfig, domAnimation } from 'motion/react'
 import type { ReactNode } from 'react'
 import { useCleanUTM } from '@/hooks/useCleanUTM'
 import { DefaultLayout } from '@/layout/DefaultLayout'
@@ -24,7 +26,6 @@ export const Route = createRootRoute({
     links: [
       { rel: 'stylesheet', href: appCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' },
-      { rel: 'shortcut icon', href: '/favicon.ico' },
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',
@@ -42,13 +43,17 @@ function RootComponent() {
 
   return (
     <RootDocument>
-      <RybbitProvider>
-        <ThemeProvider>
-          <DefaultLayout>
-            <Outlet />
-          </DefaultLayout>
-        </ThemeProvider>
-      </RybbitProvider>
+      <LazyMotion features={domAnimation} strict>
+        <MotionConfig reducedMotion="user">
+          <RybbitProvider>
+            <ThemeProvider>
+              <DefaultLayout>
+                <Outlet />
+              </DefaultLayout>
+            </ThemeProvider>
+          </RybbitProvider>
+        </MotionConfig>
+      </LazyMotion>
     </RootDocument>
   )
 }
@@ -71,9 +76,9 @@ function NotFoundPage() {
   return (
     <div className="flex flex-col gap-8 justify-center items-center min-h-screen">
       <h1 className="text-4xl font-semibold">404 - Not Found</h1>
-      <a href="/" className="btn btn-primary py-3 px-6">
+      <Link to="/" className="btn btn-primary py-3 px-6">
         返回主页
-      </a>
+      </Link>
     </div>
   )
 }

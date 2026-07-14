@@ -17,13 +17,18 @@ const ThemeContext = createContext<{
 export const useThemeContext = () => useContext(ThemeContext)
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  // Both hooks read their real value synchronously on the first client render
+  // (getInitialValueInEffect: false). This is hydration-safe because the theme
+  // is never rendered into SSR markup — it only feeds an effect and context —
+  // and it avoids a one-commit data-theme="light" flash on dark systems.
   const osTheme = useColorScheme('light', {
-    getInitialValueInEffect: true,
+    getInitialValueInEffect: false,
   })
 
   const [theme, setThemeSettings] = useLocalStorage<Theme>({
     key: 'planet-theme',
     defaultValue: 'auto',
+    getInitialValueInEffect: false,
   })
 
   const activeTheme: ActiveTheme = useMemo(() => {

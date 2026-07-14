@@ -1,4 +1,4 @@
-import { type HTMLMotionProps, motion } from 'motion/react'
+import { type HTMLMotionProps, m } from 'motion/react'
 import { createElement } from 'react'
 import { TextUpTransition } from './TextUpTransition'
 
@@ -11,15 +11,19 @@ export type TypewriterTemplate = {
 export type TypeWriterProps = {
   template: TypewriterTemplate[]
   initialDelay?: number
+  as?: 'div' | 'h1'
 } & Omit<HTMLMotionProps<'div'>, 'children'>
 
 export const Typewriter = ({
   template,
   initialDelay,
+  as,
   ...props
 }: TypeWriterProps) => {
+  const MotionTag = (as === 'h1' ? m.h1 : m.div) as typeof m.div
+
   return (
-    <motion.div
+    <MotionTag
       initial={{ opacity: 0.0001, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -49,7 +53,7 @@ export const Typewriter = ({
           ),
         )
       })}
-    </motion.div>
+    </MotionTag>
   )
 }
 

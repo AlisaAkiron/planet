@@ -1,4 +1,4 @@
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 type PopupTransitionProps = {
   children: React.ReactNode
@@ -14,12 +14,12 @@ export const PopupTransition = ({
   initialScale,
 }: PopupTransitionProps) => {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, scale: initialScale || 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: initialDelay || 0, duration: duration || 0.3 }}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }

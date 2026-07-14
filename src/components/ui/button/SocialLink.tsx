@@ -34,11 +34,10 @@ export const SocialLink = ({
       >
         <img
           className={cn('size-[21px]', invert && 'invert')}
-          width={24}
-          height={24}
+          width={21}
+          height={21}
           src={`/icons/${icon}.svg`}
           alt={icon}
-          style={{ color }}
         />
       </span>
     </a>

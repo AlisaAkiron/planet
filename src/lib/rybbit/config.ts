@@ -3,7 +3,8 @@ import type rybbit from '@rybbit/js'
 type RybbitConfig = Parameters<typeof rybbit.init>[0]
 
 /**
- * Read from `VITE_RYBBIT_*` env vars at build time (see `.env.example`). The
+ * Read from `VITE_RYBBIT_*` env vars at build time (see `.env.development`
+ * and `.env.production`). The
  * Site ID and host are public identifiers, so embedding them in the client
  * bundle is safe. Per-environment values come from Vite's mode-specific env
  * files (`.env.development`, `.env.production`).

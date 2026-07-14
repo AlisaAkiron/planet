@@ -22,6 +22,7 @@ src/routeTree.gen.ts
 # AI assistant config
 CLAUDE.md
 docs/
+.claude
 
 # Editor directories and files
 .idea

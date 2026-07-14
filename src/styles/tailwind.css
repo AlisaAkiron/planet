@@ -2,8 +2,6 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-@plugin "@tailwindcss/typography";
-
 @plugin "daisyui";
 @plugin "daisyui/theme" {
   name: 'light';
