@@ -9,4 +9,10 @@
     "enabled": true,
     "head_sampling_rate": 1,
   },
+  "kv_namespaces": [
+    {
+      "binding": "PLANET_CACHE",
+      "id": "7bdc903de03445888169352aeb41d539",
+    },
+  ],
 }

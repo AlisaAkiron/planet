@@ -20,6 +20,7 @@ export const SocialLink = ({
       href={url}
       target="_blank"
       rel="noreferrer"
+      aria-label={tooltip}
       className="tooltip rounded-full size-[36px]"
     >
       <div className="tooltip-content">
@@ -37,7 +38,8 @@ export const SocialLink = ({
           width={21}
           height={21}
           src={`/icons/${icon}.svg`}
-          alt={icon}
+          // The link is named via aria-label; the icon is decorative
+          alt=""
         />
       </span>
     </a>

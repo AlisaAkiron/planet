@@ -97,7 +97,7 @@ export const HomePage = ({ socialMedia }: HomePageProps) => {
         {/* Avatar Section */}
         <div className="lg:w-1/2 flex items-center justify-center">
           <img
-            alt="Avatar"
+            alt="Alisa's avatar"
             src="/avatar.webp"
             fetchPriority="high"
             className="h-60 w-60 rounded-full lg:h-72 lg:w-72"

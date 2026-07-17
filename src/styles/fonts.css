@@ -1,0 +1,17 @@
+/*
+ * Nerd Font icon overlay for Maple Mono. The text faces come from
+ * @chinese-fonts/maple-mono-cn (imported next to this file in
+ * MarkdownView); this face only carries the icon glyphs (subset of the
+ * official MapleMono-NF release), scoped to the Private Use Areas so it
+ * can never shadow a real text glyph. Stacked before 'Maple Mono CN' in
+ * --font-mono, together they behave like Maple Mono NF CN — the 852KB
+ * file is only downloaded when an icon codepoint actually renders.
+ */
+@font-face {
+  font-family: 'Maple Mono NF CN';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/maple-mono-nf-icons.woff2') format('woff2');
+  unicode-range: U+E000-F8FF, U+F0000-FFFFD;
+}

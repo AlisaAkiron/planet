@@ -2,7 +2,32 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-@plugin "daisyui";
+/*
+ * MiSans loads site-wide (routes/__root.tsx imports its chunked CSS);
+ * Maple Mono loads per-route through MarkdownView. MiSans declares
+ * non-standard weights (Light=250, Medium=380, Bold=630), so font-light
+ * (300) resolves to Light, body text (400) to Medium, and 600-800
+ * headings/bold to Bold. --font-sans drives Tailwind preflight's document
+ * font (--default-font-family), making MiSans the default everywhere.
+ * 'Maple Mono NF CN' is the icon-only overlay face (fonts.css); text
+ * glyphs resolve through 'Maple Mono CN'. --font-mono also drives
+ * Tailwind preflight's code/pre/kbd/samp.
+ */
+@theme {
+  --font-sans:
+    'MiSans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    'Maple Mono NF CN', 'Maple Mono CN', ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* themes: false — only the two custom theme blocks below exist, so the
+   built-in light theme can never override them on [data-theme=light]. */
+@plugin "daisyui" {
+  themes: false;
+}
+@plugin "@tailwindcss/typography";
 @plugin "daisyui/theme" {
   name: 'light';
   default: true;
@@ -72,4 +97,11 @@
 
   --color-error: #f57b9c;
   --color-error-content: #000000;
+}
+
+/* Anchor jumps glide site-wide (headings, footnotes, ToC links, …) */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
 }
