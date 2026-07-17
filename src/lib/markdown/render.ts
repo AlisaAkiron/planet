@@ -122,6 +122,9 @@ export const renderMarkdown = createServerFn({ method: 'POST' })
     }
     const { result: processed, anyFailed } = await withFetchFailureTracking(
       () => processMarkdown(content),
+      // Metadata sub-fetches persist to KV under the same trust gate:
+      // only url-sourced renders may mint KV writes.
+      { persist: key !== null },
     )
     const { tree, toc, frontmatter } = processed
     const result: SerializedMarkdown = {

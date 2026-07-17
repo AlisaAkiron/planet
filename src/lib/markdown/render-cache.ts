@@ -1,4 +1,5 @@
 import { env } from 'cloudflare:workers'
+import { sha256Hex } from './hash.ts'
 import type { SerializedMarkdown } from './render.ts'
 
 /**
@@ -17,16 +18,8 @@ const TTL_SECONDS = 86_400
  * limited to trusted origins. Everything here is best-effort: a missing
  * binding or a KV failure is a cache miss, never a broken render.
  */
-export const renderCacheKey = async (content: string): Promise<string> => {
-  const digest = await crypto.subtle.digest(
-    'SHA-256',
-    new TextEncoder().encode(content),
-  )
-  const hex = [...new Uint8Array(digest)]
-    .map(byte => byte.toString(16).padStart(2, '0'))
-    .join('')
-  return `md:v${PIPELINE_VERSION}:${hex}`
-}
+export const renderCacheKey = async (content: string): Promise<string> =>
+  `md:v${PIPELINE_VERSION}:${await sha256Hex(content)}`
 
 export const getCachedRender = async (
   key: string,
