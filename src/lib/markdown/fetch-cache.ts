@@ -1,3 +1,5 @@
+import { AsyncLocalStorage } from 'node:async_hooks'
+
 const FAILED_HEADER = 'x-planet-fetch-failed'
 const FAILURE_TTL = 300
 const MAX_TEXT_CHARS = 500_000
@@ -6,6 +8,34 @@ const MAX_TEXT_CHARS = 500_000
 export const UA_HEADER = { 'User-Agent': 'planet-markdown-renderer' }
 
 export type CachedFetchInit = RequestInit & { ttl?: number }
+
+/**
+ * Per-render failure flag. cachedFetch swallows every failure to null so
+ * rendering never breaks, which makes a failed fetch indistinguishable from
+ * a legitimately empty result (a tombstoned tweet, an av-form Bilibili link).
+ * This flag records that a fetch actually failed — a negative-cache hit
+ * counts too — so the caller can decline to persist a degraded render.
+ */
+const fetchTracking = new AsyncLocalStorage<{ failed: boolean }>()
+
+const markFetchFailed = () => {
+  const tracking = fetchTracking.getStore()
+  if (tracking) tracking.failed = true
+}
+
+/**
+ * Runs `fn` while watching for cachedFetch failures inside it. Returns the
+ * result alongside whether any fetch failed. If the async context is ever
+ * lost, `anyFailed` stays false — the render is still cached, so this can
+ * only fail open (never worse than not tracking at all).
+ */
+export const withFetchFailureTracking = async <T>(
+  fn: () => Promise<T>,
+): Promise<{ result: T; anyFailed: boolean }> => {
+  const tracking = { failed: false }
+  const result = await fetchTracking.run(tracking, fn)
+  return { result, anyFailed: tracking.failed }
+}
 
 /**
  * Fetch with Cloudflare Workers cache + hard timeout, returning the body
@@ -30,7 +60,13 @@ const cachedFetch = async (
 
   try {
     const hit = await cache?.match(cacheKey)
-    if (hit) return hit.headers.get(FAILED_HEADER) ? null : await hit.text()
+    if (hit) {
+      if (hit.headers.get(FAILED_HEADER)) {
+        markFetchFailed()
+        return null
+      }
+      return await hit.text()
+    }
   } catch {
     // cache unavailable (local dev, plain node) — fall through to fetch
   }
@@ -55,7 +91,7 @@ const cachedFetch = async (
     fetch(target, {
       ...init,
       redirect: 'manual',
-      signal: AbortSignal.timeout(3000),
+      signal: AbortSignal.timeout(5000),
     })
 
   const sameHostRedirect = (from: string, response: Response) => {
@@ -79,6 +115,7 @@ const cachedFetch = async (
       if (target) response = await fetchOnce(target)
     }
     if (!response.ok) {
+      markFetchFailed()
       await writeCache('', FAILURE_TTL, true)
       return null
     }
@@ -86,6 +123,7 @@ const cachedFetch = async (
     await writeCache(body, ttl, false)
     return body
   } catch {
+    markFetchFailed()
     await writeCache('', FAILURE_TTL, true)
     return null
   }

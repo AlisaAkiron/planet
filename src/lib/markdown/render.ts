@@ -2,6 +2,7 @@ import { env } from 'cloudflare:workers'
 import { createServerFn } from '@tanstack/react-start'
 import { getRequest } from '@tanstack/react-start/server'
 import { TRUSTED_MARKDOWN_ORIGINS } from '@/config/domains'
+import { withFetchFailureTracking } from './fetch-cache.ts'
 import { processMarkdown } from './pipeline.ts'
 import {
   getCachedRender,
@@ -119,14 +120,19 @@ export const renderMarkdown = createServerFn({ method: 'POST' })
       const cached = await getCachedRender(key)
       if (cached) return cached
     }
-    const { tree, toc, frontmatter } = await processMarkdown(content)
+    const { result: processed, anyFailed } = await withFetchFailureTracking(
+      () => processMarkdown(content),
+    )
+    const { tree, toc, frontmatter } = processed
     const result: SerializedMarkdown = {
       tree: JSON.stringify(tree),
       toc,
       frontmatter,
     }
-    // Awaited, not fire-and-forget: the Workers runtime may cancel
-    // pending work after the response is returned.
-    if (key) await putCachedRender(key, result)
+    // Awaited, not fire-and-forget: the Workers runtime may cancel pending
+    // work after the response is returned. A render whose link-card metadata
+    // fetches failed is degraded, so it is never persisted — the next request
+    // retries the fetches instead of freezing the failures for a full day.
+    if (key && !anyFailed) await putCachedRender(key, result)
     return result
   })
