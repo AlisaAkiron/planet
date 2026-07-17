@@ -1,3 +1,4 @@
+import { env } from 'cloudflare:workers'
 import { createServerFn } from '@tanstack/react-start'
 import { getRequest } from '@tanstack/react-start/server'
 import { TRUSTED_MARKDOWN_ORIGINS } from '@/config/domains'
@@ -75,9 +76,6 @@ export const renderMarkdown = createServerFn({ method: 'POST' })
   .handler(async ({ data }): Promise<SerializedMarkdown> => {
     let content: string
     if (data.url !== undefined) {
-      // Same-origin fetches cannot recurse (Cloudflare serves static
-      // assets before the worker runs); external fetches are limited to
-      // TRUSTED_MARKDOWN_ORIGINS below.
       const origin = new URL(getRequest().url).origin
       // Structural re-check after parsing: prefix checks on the raw string
       // can be steered to another host (e.g. backslash tricks), and the
@@ -92,10 +90,18 @@ export const renderMarkdown = createServerFn({ method: 'POST' })
           'url must be a local markdown path or an https url on a trusted origin',
         )
       }
-      const response = await fetch(target, {
-        redirect: 'manual',
-        signal: AbortSignal.timeout(5000),
-      })
+      // Same-origin paths must go through the assets binding: a deployed
+      // Worker's fetch to its own hostname skips the assets layer and is
+      // routed to the (nonexistent) origin server — HTTP 522. The plain
+      // fetch fallback covers non-Workers contexts without the binding;
+      // external fetches are limited to TRUSTED_MARKDOWN_ORIGINS above.
+      const response =
+        target.origin === origin && env.ASSETS
+          ? await env.ASSETS.fetch(target)
+          : await fetch(target, {
+              redirect: 'manual',
+              signal: AbortSignal.timeout(5000),
+            })
       if (!response.ok) {
         throw new Error(`Failed to load ${data.url}: HTTP ${response.status}`)
       }

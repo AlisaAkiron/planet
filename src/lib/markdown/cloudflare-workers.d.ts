@@ -15,7 +15,11 @@ declare module 'cloudflare:workers' {
       options?: { expirationTtl?: number },
     ): Promise<void>
   }
+  interface AssetsFetcher {
+    fetch(input: URL | Request | string): Promise<Response>
+  }
   export const env: {
     PLANET_CACHE?: PlanetCacheKV
+    ASSETS?: AssetsFetcher
   }
 }

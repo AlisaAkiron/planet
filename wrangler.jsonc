@@ -15,4 +15,10 @@
       "id": "7bdc903de03445888169352aeb41d539",
     },
   ],
+  // The Vite plugin manages the assets directory; only the binding is
+  // declared here so the worker can read its own static assets in-process
+  // (a fetch to the worker's own hostname bypasses the assets layer).
+  "assets": {
+    "binding": "ASSETS",
+  },
 }
