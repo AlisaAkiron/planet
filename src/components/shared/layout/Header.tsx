@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { ThemeSwitch } from '@/components/ui/button'
 
 export const Header = () => {
   return (
@@ -9,7 +10,9 @@ export const Header = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex"></div>
-      <div className="navbar-end"></div>
+      <div className="navbar-end">
+        <ThemeSwitch />
+      </div>
     </header>
   )
 }

@@ -38,23 +38,22 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     return theme
   }, [osTheme, theme])
 
-  const setTheme = (t: Theme) => {
-    setThemeSettings(t)
-  }
-
+  // The inline head script in routes/__root.tsx already applied both
+  // attributes before first paint; this effect takes over from hydration
+  // on (OS preference changes, cross-tab updates, ThemeSwitch).
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', activeTheme)
-  }, [activeTheme])
+    document.documentElement.setAttribute('data-theme-mode', theme)
+  }, [activeTheme, theme])
 
-  return (
-    <ThemeContext.Provider
-      value={{
-        theme: theme,
-        activeTheme: activeTheme,
-        setTheme: setTheme,
-      }}
-    >
-      {children}
-    </ThemeContext.Provider>
+  const value = useMemo(
+    () => ({
+      theme: theme,
+      activeTheme: activeTheme,
+      setTheme: setThemeSettings,
+    }),
+    [theme, activeTheme, setThemeSettings],
   )
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }

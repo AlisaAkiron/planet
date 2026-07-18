@@ -2,6 +2,13 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/* Theme *mode* (the stored choice, incl. auto) — set on <html> pre-paint by
+   the head script in routes/__root.tsx and kept current by ThemeProvider.
+   Lets ThemeSwitch show the active mode without theme-dependent SSR markup. */
+@custom-variant theme-light (&:where([data-theme-mode=light] *));
+@custom-variant theme-auto (&:where([data-theme-mode=auto] *));
+@custom-variant theme-dark (&:where([data-theme-mode=dark] *));
+
 /*
  * MiSans loads site-wide (routes/__root.tsx imports its chunked CSS);
  * Maple Mono loads per-route through MarkdownView. MiSans declares
@@ -39,13 +46,18 @@
   --color-base-300: #d1d1d1;
   --color-base-content: #1a1a1a;
 
-  --color-primary: #f9a8d4;
-  --color-primary-content: #1a1a1a;
+  /* Roles that render as foreground on base surfaces (ToC active link,
+     prose links, progress bar, status text) hold the dark theme's pastel
+     hues but deepened — the pastels sit near 1.5–2.7:1 contrast on
+     #f1f1f1, which is illegible as text. Purely decorative roles
+     (secondary, neutral, info, warning) keep the pastel look. */
+  --color-primary: #db2777;
+  --color-primary-content: #ffffff;
 
   --color-secondary: #fde047;
   --color-secondary-content: #1a1a1a;
 
-  --color-accent: #60a5fa;
+  --color-accent: #2563eb;
   --color-accent-content: #ffffff;
 
   --color-neutral: #fecdd3;
@@ -54,14 +66,14 @@
   --color-info: #93c5fd;
   --color-info-content: #1a1a1a;
 
-  --color-success: #73d7b2;
-  --color-success-content: #1a1a1a;
+  --color-success: #047857;
+  --color-success-content: #ffffff;
 
   --color-warning: #fbbf24;
   --color-warning-content: #1a1a1a;
 
-  --color-error: #f57b9c;
-  --color-error-content: #1a1a1a;
+  --color-error: #b91c1c;
+  --color-error-content: #ffffff;
 }
 
 @plugin "daisyui/theme" {
@@ -103,5 +115,31 @@
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
+  }
+}
+
+/* Theme-switch circular reveal, scoped via view transition types so only
+   theme changes get it. ThemeSwitch sets the --theme-transition-* vars on
+   the root and starts a 'theme-change' transition; the default cross-fade
+   is disabled because it would wash out the expanding circle's edge. */
+:active-view-transition-type(theme-change)::view-transition-old(root),
+:active-view-transition-type(theme-change)::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+:active-view-transition-type(theme-change)::view-transition-new(root) {
+  clip-path: circle(
+    0px at var(--theme-transition-x, 50%) var(--theme-transition-y, 50%)
+  );
+  animation: theme-reveal 0.5s ease-out forwards;
+}
+
+@keyframes theme-reveal {
+  to {
+    clip-path: circle(
+      var(--theme-transition-radius, 100vmax) at var(--theme-transition-x, 50%)
+        var(--theme-transition-y, 50%)
+    );
   }
 }

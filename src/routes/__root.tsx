@@ -24,6 +24,15 @@ import 'misans/lib/Normal/MiSans-Bold.min.css'
 import misansLightLatin from 'misans/lib/Normal/MiSans-Light.latin.woff2?url'
 import misansMediumLatin from 'misans/lib/Normal/MiSans-Medium.latin.woff2?url'
 
+// Applies the persisted theme before first paint so a stored choice that
+// differs from the OS preference doesn't flash the wrong theme. data-theme
+// carries the resolved theme (drives DaisyUI); data-theme-mode carries the
+// stored mode incl. 'auto' (drives ThemeSwitch's CSS-only current-mode UI).
+// Keep the storage key and the auto → OS resolution in sync with
+// ThemeProvider (which owns both attributes after hydration; the value is
+// JSON-encoded by @mantine/hooks' useLocalStorage).
+const themeInitScript = `(function(){var m;try{m=JSON.parse(localStorage.getItem('planet-theme'))}catch(e){}if(m!=='light'&&m!=='dark'&&m!=='auto'){m='auto'}var t=m==='auto'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):m;var r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-theme-mode',m)})()`
+
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -61,6 +70,10 @@ export const Route = createRootRoute({
       },
       { rel: 'manifest', href: '/site.webmanifest' },
     ],
+    // head() scripts land in <head> via HeadContent (blocking, pre-paint);
+    // the route-level scripts() option would render at the end of <body>
+    // instead — too late to prevent the flash.
+    scripts: [{ children: themeInitScript }],
   }),
   notFoundComponent: NotFoundPage,
   component: RootComponent,
