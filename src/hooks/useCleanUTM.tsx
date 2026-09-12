@@ -3,12 +3,16 @@ import { useEffect } from 'react'
 import { rybbitReady } from '@/lib/rybbit/client'
 
 export const useCleanUTM = () => {
-  const pathname = useRouterState({ select: s => s.location.pathname })
+  const href = useRouterState({ select: s => s.location.href })
 
   useEffect(() => {
-    const hasUtm = [...new URLSearchParams(window.location.search).keys()].some(
-      key => key.startsWith('utm_'),
-    )
+    // The router's href drives this: it changes on every navigation, including
+    // search-only ones. It goes stale after the rewrite below (which bypasses
+    // the router on purpose), but that only ever costs a no-op rewrite of an
+    // already-clean URL — the rewrite itself always reads window.location.
+    const hasUtm = [
+      ...new URL(href, window.location.origin).searchParams.keys(),
+    ].some(key => key.startsWith('utm_'))
     if (!hasUtm) return
 
     // Wait for Rybbit's initial pageview before rewriting the URL — it reads
@@ -45,5 +49,5 @@ export const useCleanUTM = () => {
     return () => {
       cancelled = true
     }
-  }, [pathname])
+  }, [href])
 }

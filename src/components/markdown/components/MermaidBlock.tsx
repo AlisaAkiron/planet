@@ -20,6 +20,10 @@ export const MermaidBlock = ({ code = '' }: { code?: string }) => {
           startOnLoad: false,
           securityLevel: 'strict',
           theme: activeTheme === 'dark' ? 'dark' : 'neutral',
+          // v12 defaults to the elk layout and the neo look; keep the v11
+          // rendering — elk would also pull in a ~550 kB (gzip) extra chunk.
+          layout: 'dagre',
+          look: 'classic',
         })
         // mermaid uses the id as a DOM selector — strip useId's punctuation
         const id = `mmd${reactId.replace(/[^a-zA-Z0-9]/g, '')}`

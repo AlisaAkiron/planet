@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { flushSync } from 'react-dom'
 import { useThemeContext } from '@/providers/ThemeProvider'
 import { cn } from '@/utils/cn'
@@ -89,14 +89,17 @@ const THEME_OPTIONS: {
   },
 ]
 
+const subscribeMount = () => () => {}
+const isMounted = () => true
+const isNotMounted = () => false
+
 export const ThemeSwitch = () => {
   const { theme, activeTheme, setTheme } = useThemeContext()
 
   // aria-checked can't be CSS-driven, and the stored mode differs from the
   // server-rendered default — render the server's 'auto' until mounted so
   // hydration stays clean, then correct it.
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  const mounted = useSyncExternalStore(subscribeMount, isMounted, isNotMounted)
   const displayMode: Theme = mounted ? theme : 'auto'
 
   const selectTheme = (mode: Theme, origin: HTMLElement) => {

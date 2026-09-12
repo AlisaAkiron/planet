@@ -30,8 +30,10 @@ const Toc = ({
   } | null>(null)
 
   useEffect(() => {
+    // Matched on the id rather than on aria-current so the measurement
+    // follows the prop instead of the order the attribute happens to land in.
     const active = navRef.current?.querySelector<HTMLElement>(
-      'a[aria-current="true"]',
+      `a[href="#${CSS.escape(activeHeadingId ?? '')}"]`,
     )
     setIndicator(
       active ? { top: active.offsetTop, height: active.offsetHeight } : null,

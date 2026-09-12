@@ -1,5 +1,5 @@
 import { AnimatePresence, m } from 'motion/react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import type { JSX } from 'react'
 
@@ -61,10 +61,12 @@ export const ZoomImage = ({
     setHidden(true)
   }
 
-  const close = () => {
+  // Stable so the dismiss listeners below can depend on it without
+  // re-binding on every render.
+  const close = useCallback(() => {
     setZoom(null)
     buttonRef.current?.focus()
-  }
+  }, [])
 
   useEffect(() => {
     if (!zoom) return
@@ -78,7 +80,7 @@ export const ZoomImage = ({
       window.removeEventListener('wheel', dismiss)
       window.removeEventListener('touchmove', dismiss)
     }
-  }, [zoom])
+  }, [zoom, close])
 
   return (
     <>
