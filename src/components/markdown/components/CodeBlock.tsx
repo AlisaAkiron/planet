@@ -9,7 +9,6 @@ import {
   CodeIcon,
   CopyIcon,
 } from './link-cards/icons'
-import type { ReactNode } from 'react'
 
 /** Blocks longer than this collapse behind a "Show all" fade. */
 const FOLD_LINES = 30
@@ -19,19 +18,21 @@ const COLLAPSED_MAX_HEIGHT = '24rem'
 /**
  * GitHub-style code frame: header with optional file path (from
  * ```lang:path or ```lang title=path fences), language name + logo, and a
- * copy button; the shiki <pre> sits below. Long blocks start folded and
- * animate open/closed.
+ * copy button; the shiki <pre> sits below, injected from the server-built
+ * HTML string so React never walks a span per token. Long blocks start
+ * folded and animate open/closed.
  */
 export const CodeBlock = ({
   lang = 'text',
   lines = 0,
   title,
-  children,
+  html = '',
 }: {
   lang?: string
   lines?: number
   title?: string
-  children?: ReactNode
+  /** shiki output (`<pre class="shiki">…`), escaped by shiki */
+  html?: string
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
@@ -118,7 +119,7 @@ export const CodeBlock = ({
             : undefined
         }
       >
-        {children}
+        <div dangerouslySetInnerHTML={{ __html: html }} />
         {foldable && (
           // Sticky (not absolute) so it stays pinned to the visible bottom
           // even when find-in-page or focus scrolls the clipped region.
@@ -127,7 +128,7 @@ export const CodeBlock = ({
             aria-expanded={expanded}
             tabIndex={expanded ? -1 : 0}
             className={cn(
-              'sticky bottom-0 -mt-24 flex h-24 w-full cursor-pointer items-end justify-center bg-gradient-to-t from-base-200 via-base-200/70 to-transparent pb-2 transition-opacity duration-300',
+              'sticky bottom-0 -mt-24 flex h-24 w-full cursor-pointer items-end justify-center bg-linear-to-t from-base-200 via-base-200/70 to-transparent pb-2 transition-opacity duration-300',
               expanded && 'pointer-events-none opacity-0',
             )}
           >

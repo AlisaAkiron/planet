@@ -1,4 +1,3 @@
-import rehypeKatex from 'rehype-katex'
 import rehypeRaw from 'rehype-raw'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
@@ -6,12 +5,13 @@ import remarkMath from 'remark-math'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified } from 'unified'
-import { visit } from 'unist-util-visit'
+import { EXIT, visit } from 'unist-util-visit'
 import { VFile } from 'vfile'
 import { rehypeCode } from './plugins/rehype-code.ts'
 import { rehypeHeadings } from './plugins/rehype-headings.ts'
 import { rehypeImageFigure } from './plugins/rehype-image-figure.ts'
 import { rehypeLinkCards } from './plugins/rehype-link-cards.ts'
+import { rehypeMath } from './plugins/rehype-math.ts'
 import { rehypeMedia } from './plugins/rehype-media.ts'
 import { rehypeZoomImage } from './plugins/rehype-zoom-image.ts'
 import { remarkCodeMeta } from './plugins/remark-code-meta.ts'
@@ -19,6 +19,7 @@ import { remarkFrontmatterData } from './plugins/remark-frontmatter-data.ts'
 import type { TocEntry } from './plugins/rehype-headings.ts'
 import type { Frontmatter } from './plugins/remark-frontmatter-data.ts'
 import type { Root } from 'hast'
+import type { Plugin } from 'unified'
 
 export interface MarkdownResult {
   tree: Root
@@ -27,6 +28,24 @@ export interface MarkdownResult {
 }
 
 export type { Frontmatter, TocEntry }
+
+/**
+ * rehype-raw serializes the whole tree and reparses it with parse5 so
+ * that raw HTML nodes get real element structure. That is only useful
+ * when the document contains raw HTML; for the common case without any,
+ * skip the round trip.
+ */
+const rehypeRawWhenNeeded: Plugin<[], Root> = function () {
+  const transform = rehypeRaw.call(this)
+  return (tree, file) => {
+    let hasRaw = false
+    visit(tree, 'raw', () => {
+      hasRaw = true
+      return EXIT
+    })
+    return hasRaw ? transform?.(tree, file) : undefined
+  }
+}
 
 const processor = unified()
   .use(remarkParse)
@@ -40,8 +59,8 @@ const processor = unified()
     // visible, styleable label instead of the default sr-only heading
     footnoteLabelProperties: { className: ['footnotes-label'] },
   })
-  .use(rehypeRaw)
-  .use(rehypeKatex)
+  .use(rehypeRawWhenNeeded)
+  .use(rehypeMath)
   .use(rehypeCode)
   .use(rehypeMedia)
   .use(rehypeImageFigure)
@@ -52,7 +71,9 @@ const processor = unified()
 /**
  * Server-only: markdown string → JSON-serializable hast tree + ToC +
  * frontmatter. The tree is rendered to React by MarkdownView on both the
- * server (SSR) and client (hydration) without re-parsing.
+ * server (SSR) and client (hydration) without re-parsing. Highlighted code
+ * and rendered math are embedded as HTML strings, so the tree stays a few
+ * hundred nodes even for code-heavy documents.
  */
 export const processMarkdown = async (
   content: string,

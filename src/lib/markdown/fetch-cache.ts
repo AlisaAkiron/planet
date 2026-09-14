@@ -35,6 +35,10 @@ interface FetchContext {
 
 const fetchContext = new AsyncLocalStorage<FetchContext>()
 
+/** Whether the current render may write to (and bulk-read from) KV. */
+export const isPersistEnabled = (): boolean =>
+  fetchContext.getStore()?.persist ?? false
+
 const markFetchFailed = () => {
   const context = fetchContext.getStore()
   if (context) context.failed = true
@@ -71,7 +75,7 @@ const readCached = async (key: string): Promise<string | null> => {
 }
 
 const writeCached = async (key: string, body: string, ttl: number) => {
-  if (!fetchContext.getStore()?.persist) return
+  if (!isPersistEnabled()) return
   try {
     await env.PLANET_CACHE?.put(key, body, {
       expirationTtl: Math.max(ttl, MIN_KV_TTL),

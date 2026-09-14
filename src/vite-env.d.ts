@@ -10,3 +10,10 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+
+// The Cloudflare Vite plugin imports .wasm files as precompiled modules
+// (Workers can't compile WASM from bytes at runtime); shiki ships none.
+declare module 'shiki/onig.wasm' {
+  const wasm: WebAssembly.Module
+  export default wasm
+}

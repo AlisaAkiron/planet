@@ -1,12 +1,18 @@
 import { toString } from 'hast-util-to-string'
 import { visit } from 'unist-util-visit'
-import { SHIKI_THEMES, getHighlighter, resolveLoadedLang } from '../shiki.ts'
+import { highlightMany } from '../highlight-cache.ts'
 import type { Element, Root } from 'hast'
 
 interface CodeTarget {
   node: Element
   index: number
   parent: Element | Root
+}
+
+interface CodeBlock extends CodeTarget {
+  lang: string
+  title: string | undefined
+  source: string
 }
 
 const languageOf = (code: Element): string => {
@@ -42,8 +48,9 @@ const parseFence = (rawLang: string, code: Element) => {
 /**
  * Replaces markdown code fences with highlighted output:
  *   ```mermaid  → <mermaid-block code="...">   (client renders the SVG)
- *   ```<lang>   → <code-block lang="..."> wrapping shiki's <pre class="shiki">
- * Unknown languages fall back to plain text highlighting.
+ *   ```<lang>   → <code-block lang="..." html="<pre class=shiki>…">
+ * The highlighted markup travels as an HTML string (see shiki.ts) that
+ * CodeBlock injects verbatim. Unknown languages fall back to plain text.
  */
 export const rehypeCode = () => async (tree: Root) => {
   const targets: CodeTarget[] = []
@@ -56,15 +63,13 @@ export const rehypeCode = () => async (tree: Root) => {
   })
   if (targets.length === 0) return
 
-  const highlighter = await getHighlighter()
-
-  for (const { node, index, parent } of targets) {
-    const code = node.children[0] as Element
+  const blocks: CodeBlock[] = []
+  for (const target of targets) {
+    const code = target.node.children[0] as Element
     const { lang, title } = parseFence(languageOf(code), code)
     const source = toString(code).replace(/\n$/, '')
-
     if (lang === 'mermaid') {
-      parent.children[index] = {
+      target.parent.children[target.index] = {
         type: 'element',
         tagName: 'mermaid-block',
         properties: { code: source },
@@ -72,17 +77,23 @@ export const rehypeCode = () => async (tree: Root) => {
       }
       continue
     }
+    blocks.push({ ...target, lang, title, source })
+  }
 
-    const highlighted = highlighter.codeToHast(source, {
-      lang: resolveLoadedLang(highlighter, lang),
-      themes: SHIKI_THEMES,
-      defaultColor: false,
-    })
+  const htmls = await highlightMany(
+    blocks.map(({ source, lang }) => ({ code: source, lang })),
+  )
+  blocks.forEach(({ parent, index, lang, title, source }, i) => {
     parent.children[index] = {
       type: 'element',
       tagName: 'code-block',
-      properties: { lang, lines: source.split('\n').length, title },
-      children: highlighted.children as Element[],
+      properties: {
+        lang,
+        lines: source.split('\n').length,
+        title,
+        html: htmls[i],
+      },
+      children: [],
     }
-  }
+  })
 }

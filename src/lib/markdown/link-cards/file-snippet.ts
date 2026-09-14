@@ -1,5 +1,5 @@
 import { LANG_ALIASES } from '../languages.ts'
-import { highlightToHtml } from '../shiki.ts'
+import { highlightOne } from '../highlight-cache.ts'
 import type { CardMeta } from './types.ts'
 
 export const langForFile = (path: string): string => {
@@ -56,7 +56,7 @@ export const buildFileSnippet = async (
     selected = lines
   }
 
-  const codeHtml = await highlightToHtml(
+  const codeHtml = await highlightOne(
     selected.join('\n'),
     langForFile(filePath),
   )

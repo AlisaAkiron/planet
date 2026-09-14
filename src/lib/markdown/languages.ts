@@ -1,14 +1,17 @@
 /**
  * Fence aliases and file extensions → canonical shiki language ids. Shared
- * by the code-block header (lang-info) and file-card snippets so the two
- * can't drift. Keep in sync with the grammars loaded in shiki.ts.
+ * by the highlighter (shiki.ts), the code-block header (lang-info) and
+ * file-card snippets so they can't drift. Canonical ids must have a
+ * grammar loader in shiki.ts.
  */
 export const LANG_ALIASES: Record<string, string> = {
   bash: 'shellscript',
   c: 'c',
+  'c++': 'cpp',
   cjs: 'javascript',
   cpp: 'cpp',
   css: 'css',
+  cts: 'typescript',
   diff: 'diff',
   dockerfile: 'docker',
   go: 'go',
@@ -21,6 +24,7 @@ export const LANG_ALIASES: Record<string, string> = {
   markdown: 'markdown',
   md: 'markdown',
   mjs: 'javascript',
+  mts: 'typescript',
   patch: 'diff',
   py: 'python',
   rs: 'rust',

@@ -14,6 +14,7 @@ import '@chinese-fonts/maple-mono-cn/dist/MapleMono-CN-Bold/result.css'
 import '@/styles/fonts.css'
 import { cn } from '@/utils/cn'
 import { CodeBlock } from './components/CodeBlock'
+import { KatexMath } from './components/KatexMath'
 import { MediaEmbed } from './components/MediaEmbed'
 import { MermaidBlock } from './components/MermaidBlock'
 import { ZoomImage } from './components/ZoomImage'
@@ -48,6 +49,7 @@ const defaultComponents = {
   a: ExternalLink,
   table: ScrollableTable,
   'code-block': CodeBlock,
+  'katex-math': KatexMath,
   'link-card': LinkCard,
   'media-embed': MediaEmbed,
   'mermaid-block': MermaidBlock,
