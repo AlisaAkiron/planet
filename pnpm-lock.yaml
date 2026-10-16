@@ -51,8 +51,8 @@ importers:
         specifier: ^12.2.0
         version: 12.2.0
       misans:
-        specifier: ^4.1.0
-        version: 4.1.0
+        specifier: ^5.0.0
+        version: 5.0.0
       motion:
         specifier: ^14.3.0
         version: 14.3.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -2407,8 +2407,8 @@ packages:
     resolution: {integrity: sha512-Cjrs+vHHQ7krLO4HYELYpYBJBuMhcnNZD/Z5z/UcQSnFqWSQY3DhtTCFalXgI1/yO1iK+YrRKK8EYkumrEopxg==}
     engines: {node: '>=22.0.0'}
 
-  misans@4.1.0:
-    resolution: {integrity: sha512-CcIRrIVhnt+OpGXvw1Q8llGBVAy5P2mdov/kJ0gGa81sJ0RY7mZp2fNAt2ySTCeZos+wo7ZnzDZxl1In//7FdA==}
+  misans@5.0.0:
+    resolution: {integrity: sha512-8cNqn0n0f+NCuXFT9VMVcfO2/zPp3DA89AQKGJOVWdTM8qkYW7NT0+qGyn1j3PmXeGAc1sVJY6+unBWz01b1+g==}
 
   motion-dom@14.3.0:
     resolution: {integrity: sha512-rcKO4aEJzAqDEsrH6qFzhLZxs7bNqZpiUEuEATz9LaRwt6dG7hZEbcFUSHNR8NECaKYM0Iuw6Iv6NpWEGXDI+w==}
@@ -5126,7 +5126,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  misans@4.1.0: {}
+  misans@5.0.0: {}
 
   motion-dom@14.3.0:
     dependencies:

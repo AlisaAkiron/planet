@@ -13,16 +13,16 @@ import { RybbitProvider } from '@/providers/RybbitProvider'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import appCss from '@/styles/index.css?url'
 // Site-wide text face, through Vite (not the Tailwind pipeline) so the
-// font url()s get rebased and the woff2 files land in the build. MiSans
-// declares non-standard weights (Light=250, Medium=380, Bold=630): 300
-// resolves to Light, body 400 to Medium, 600-800 to Bold.
-import 'misans/lib/Normal/MiSans-Light.min.css'
-import 'misans/lib/Normal/MiSans-Medium.min.css'
-import 'misans/lib/Normal/MiSans-Bold.min.css'
-// The two Basic Latin chunks (16 KB each) are preloaded below; '.latin'
-// is the misans package's chunk name — re-check it on misans major bumps.
-import misansLightLatin from 'misans/lib/Normal/MiSans-Light.latin.woff2?url'
-import misansMediumLatin from 'misans/lib/Normal/MiSans-Medium.latin.woff2?url'
+// font url()s get rebased and the woff2 files land in the build. One
+// variable font instead of three static weights: its CSS is a third the
+// size on the critical path. Its weight axis is MiSans' internal
+// usWeightClass (150-700), so styles/tailwind.css remaps the weight tokens.
+import 'misans/lib/Normal/MiSansVF.min.css'
+// The Basic Latin slice (~50 KB, slice 50 = U+21-7E, U+A0-108) is
+// preloaded below. Slice names are content-hashed, so this must be
+// re-copied from node_modules/misans/lib/Normal on every misans bump (a
+// stale name fails the build).
+import misansLatin from 'misans/lib/Normal/MiSansVF.3ee7f36171786397.50.woff2?url'
 
 // Applies the persisted theme before first paint so a stored choice that
 // differs from the OS preference doesn't flash the wrong theme. data-theme
@@ -45,20 +45,13 @@ export const Route = createRootRoute({
     ],
     links: [
       // Above-the-fold text (hero, nav, footer) is almost entirely Basic
-      // Latin; preloading starts these fetches from the initial HTML
-      // instead of after CSSOM+layout. CJK/kana chunks swap in normally.
+      // Latin; preloading starts this fetch from the initial HTML
+      // instead of after CSSOM+layout. CJK/kana slices swap in normally.
       {
         rel: 'preload',
         as: 'font',
         type: 'font/woff2',
-        href: misansLightLatin,
-        crossOrigin: 'anonymous',
-      },
-      {
-        rel: 'preload',
-        as: 'font',
-        type: 'font/woff2',
-        href: misansMediumLatin,
+        href: misansLatin,
         crossOrigin: 'anonymous',
       },
       { rel: 'stylesheet', href: appCss },
