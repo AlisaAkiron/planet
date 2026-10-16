@@ -111,6 +111,31 @@
   --color-error-content: #000000;
 }
 
+/* TanStack Router puts aria-current="page" on the <Link> for the current
+   route, and DaisyUI fills any .btn with aria-current as "selected". A link
+   to the current page isn't a pressed button, so revert that fill: DaisyUI
+   stacks .btn variants (l3) < selected state (l2) < hover/active (l1), and
+   revert-layer from inside l2 falls back to whatever the variant (ghost,
+   primary, …) set, leaving hover and press feedback untouched. Opt back in
+   per link with activeProps={{ className: 'btn-active' }}. */
+@layer utilities {
+  @layer daisyui.l1.l2 {
+    a.btn[aria-current='page']:not(
+        .btn-active,
+        [aria-pressed='true'],
+        [aria-checked='true']
+      ) {
+      --btn-bg: revert-layer;
+      --btn-border: revert-layer;
+      --btn-border-style: revert-layer;
+      --btn-inset: revert-layer;
+      --btn-shadow: revert-layer;
+      color: revert-layer;
+      isolation: revert-layer;
+    }
+  }
+}
+
 /* Anchor jumps glide site-wide (headings, footnotes, ToC links, …) */
 @media (prefers-reduced-motion: no-preference) {
   :root {
