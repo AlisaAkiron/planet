@@ -7,7 +7,7 @@ import type { SerializedMarkdown } from './render.ts'
  * entries are then never read again and expire via TTL, so no purge
  * logic is needed.
  */
-const PIPELINE_VERSION = 2
+const PIPELINE_VERSION = 3
 
 const TTL_SECONDS = 86_400
 

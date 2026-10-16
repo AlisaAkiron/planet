@@ -3,6 +3,7 @@ import { cn } from '@/utils/cn'
 const START_YEAR = 2024
 
 export const Footer = () => {
+  // eslint-disable-next-line react/purity -- copyright year only
   const currentYear = new Date().getFullYear()
   const copyrightYear =
     currentYear === START_YEAR
