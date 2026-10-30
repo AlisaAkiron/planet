@@ -39,11 +39,13 @@ jobs:
       - name: Check formatting
         run: pnpm exec oxfmt --check .
 
-      - name: Typecheck
-        run: pnpm typecheck
-
       - name: Build site and preview server
         run: pnpm build
 
       - name: Build static preview
         run: pnpm --filter @planet/preview build:static
+
+      # After the builds: they generate the gitignored routeTree.gen.ts
+      # files the apps' types depend on.
+      - name: Typecheck
+        run: pnpm typecheck

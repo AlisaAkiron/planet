@@ -46,11 +46,13 @@ jobs:
       - name: Lint code
         run: pnpm lint
 
-      - name: Typecheck
-        run: pnpm --filter "@planet/web..." typecheck
-
       - name: Build project
         run: pnpm --filter @planet/web build
+
+      # After the build: it generates the gitignored routeTree.gen.ts the
+      # app's types depend on.
+      - name: Typecheck
+        run: pnpm --filter "@planet/web..." typecheck
 
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
