@@ -19,8 +19,8 @@ mirror this structure exactly.
 
 ### Emphasis & Combinations
 
-**Bold**, _italic_, _**bold italic**_, ~~strikethrough~~, ~~single-tilde
-strike~~, and `inline code`.
+**Bold**, _italic_, _**bold italic**_, ~~strikethrough~~, ~single-tilde
+strike~, and `inline code`.
 
 Groupings: **bold with `code` inside**, _italic with a
 [link](https://example.com)_, [link with **bold** and `code`](https://example.com),
@@ -239,10 +239,12 @@ Inline math: $E = mc^2$, $\hbar \frac{\partial}{\partial t} \Psi = \hat{H}
 \Psi$, Euler's sum $\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$,
 and CJK inside math: $\text{速度} = \frac{\text{距离}}{\text{时间}}$.
 
-Display math — integral:
+Display math. GitHub drops the backslash of `\` + punctuation inside `$$`,
+so row breaks `\\` sit at line ends and spacing uses named commands
+(`\thinspace`, not `\,`) — integral:
 
 $$
-\int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}
+\int_0^\infty e^{-x^2} \thinspace dx = \frac{\sqrt{\pi}}{2}
 $$
 
 Cases:
@@ -257,9 +259,12 @@ $$
 Matrices:
 
 $$
-\begin{pmatrix} a & b \\ c & d \end{pmatrix}
-\begin{pmatrix} x \\ y \end{pmatrix} =
-\begin{pmatrix} ax + by \\ cx + dy \end{pmatrix}
+\begin{pmatrix} a & b \\
+  c & d \end{pmatrix}
+\begin{pmatrix} x \\
+  y \end{pmatrix} =
+\begin{pmatrix} ax + by \\
+  cx + dy \end{pmatrix}
 $$
 
 Aligned equations (Maxwell, differential form):
@@ -366,9 +371,9 @@ export default () => <Badge tone="success">已通过</Badge>
 
 ### Systems & Data
 
-Title via `:path` fence syntax, with a CJK docstring:
+Title via `title=` meta, with a CJK docstring:
 
-```python:examples/fib.py
+```python title=examples/fib.py
 def fib(n: int) -> int:
     """斐波那契数列（递归版）"""
     return n if n < 2 else fib(n - 1) + fib(n - 2)
@@ -755,10 +760,6 @@ https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm
 Bare audio link:
 
 https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3
-
-Audio via image syntax (alt text becomes the title):
-
-![T-Rex roar 恐竜の咆哮](https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3)
 
 ## Headings & Anchors 标题锚点
 
