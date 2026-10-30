@@ -1,3 +1,27 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalog:
+  '@mantine/hooks': ^9.7.2
+  '@tailwindcss/postcss': ^4.3.3
+  '@tanstack/react-router': ^1.170.44
+  '@tanstack/react-start': ^1.169.2
+  '@types/node': ^26.6.5
+  '@types/react': ^19.3.0
+  '@types/react-dom': ^19.3.0
+  '@vitejs/plugin-react': ^6.1.2
+  clsx: ^2.1.1
+  misans: ^5.0.0
+  motion: ^14.3.0
+  postcss: ^8.5.30
+  react-dom: ^19.3.1
+  react: ^19.3.1
+  tailwind-merge: ^3.7.0
+  tailwindcss: ^4.3.3
+  typescript: ^7.0.2
+  vite: ^8.3.4
+
 allowBuilds:
   esbuild: true
   sharp: true

@@ -1,0 +1,18 @@
+{
+  "name": "@planet/theme",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Planet's design tokens: DaisyUI themes, fonts and typography, as a Tailwind CSS layer.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./theme.css": "./src/theme.css"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "daisyui": "^5.7.50"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.3.3"
+  }
+}

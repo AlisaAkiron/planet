@@ -9,11 +9,13 @@ lerna-debug.log*
 
 node_modules
 dist
+dist-static
 dist-ssr
 *.local
 
-# TanStack Router (auto-generated)
-src/routeTree.gen.ts
+# TanStack Router / Start (auto-generated)
+apps/*/src/routeTree.gen.ts
+.tanstack
 
 # Cloudflare
 .wrangler

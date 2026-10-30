@@ -1,9 +1,19 @@
 name: Deploy to Cloudflare
 
+# Only when something the site ships changes; preview-only commits are
+# checked by ci.yaml but don't redeploy it.
 on:
   push:
     branches:
       - main
+    paths:
+      - apps/web/**
+      - packages/**
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - .github/workflows/deploy.yaml
+  workflow_dispatch:
 
 concurrency:
   group: deploy
@@ -36,12 +46,17 @@ jobs:
       - name: Lint code
         run: pnpm lint
 
+      - name: Typecheck
+        run: pnpm --filter "@planet/web..." typecheck
+
       - name: Build project
-        run: pnpm build
+        run: pnpm --filter @planet/web build
 
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: apps/web
+          packageManager: pnpm
           command: deploy

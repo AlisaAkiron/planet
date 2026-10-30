@@ -1,0 +1,42 @@
+{
+  "name": "@planet/web",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev --port 5173",
+    "build": "vite build && tsc -b --noEmit",
+    "preview": "vite preview",
+    "deploy": "pnpm build && wrangler deploy",
+    "cf-typegen": "wrangler types --include-env false",
+    "typecheck": "tsc -b --noEmit"
+  },
+  "dependencies": {
+    "@mantine/hooks": "catalog:",
+    "@planet/markdown": "workspace:*",
+    "@planet/theme": "workspace:*",
+    "@rybbit/js": "^0.6.3",
+    "@tanstack/react-router": "catalog:",
+    "@tanstack/react-start": "catalog:",
+    "clsx": "catalog:",
+    "misans": "catalog:",
+    "motion": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tailwind-merge": "catalog:"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.64.0",
+    "@tailwindcss/postcss": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "postcss": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "wrangler": "^4.151.0"
+  }
+}

@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+**/dist-static
+**/.tanstack
+**/.wrangler
+.git
+.github
+.vscode
+.claude

@@ -4,33 +4,221 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@mantine/hooks':
+      specifier: ^9.7.2
+      version: 9.7.2
+    '@tailwindcss/postcss':
+      specifier: ^4.3.3
+      version: 4.3.3
+    '@tanstack/react-router':
+      specifier: ^1.170.44
+      version: 1.170.44
+    '@tanstack/react-start':
+      specifier: ^1.169.2
+      version: 1.169.2
+    '@types/node':
+      specifier: ^26.6.5
+      version: 26.6.5
+    '@types/react':
+      specifier: ^19.3.0
+      version: 19.3.0
+    '@types/react-dom':
+      specifier: ^19.3.0
+      version: 19.3.0
+    '@vitejs/plugin-react':
+      specifier: ^6.1.2
+      version: 6.1.2
+    clsx:
+      specifier: ^2.1.1
+      version: 2.1.1
+    misans:
+      specifier: ^5.0.0
+      version: 5.0.0
+    motion:
+      specifier: ^14.3.0
+      version: 14.3.0
+    postcss:
+      specifier: ^8.5.30
+      version: 8.5.30
+    react:
+      specifier: ^19.3.1
+      version: 19.3.1
+    react-dom:
+      specifier: ^19.3.1
+      version: 19.3.1
+    tailwind-merge:
+      specifier: ^3.7.0
+      version: 3.7.0
+    tailwindcss:
+      specifier: ^4.3.3
+      version: 4.3.3
+    typescript:
+      specifier: ^7.0.2
+      version: 7.0.2
+    vite:
+      specifier: ^8.3.4
+      version: 8.3.4
+
 importers:
 
   .:
+    devDependencies:
+      oxfmt:
+        specifier: ^0.73.0
+        version: 0.73.0
+      oxlint:
+        specifier: ^1.88.0
+        version: 1.88.0
+
+  apps/preview:
+    dependencies:
+      '@planet/markdown':
+        specifier: workspace:*
+        version: link:../../packages/markdown
+      '@planet/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+      '@tanstack/react-router':
+        specifier: 'catalog:'
+        version: 1.170.44(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@tanstack/react-start':
+        specifier: 'catalog:'
+        version: 1.169.2(esbuild@0.28.2)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(rolldown@1.2.14)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+      misans:
+        specifier: 'catalog:'
+        version: 5.0.0
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.3.1(react@19.3.1)
+      srvx:
+        specifier: ^1.0.5
+        version: 1.0.5
+    devDependencies:
+      '@tailwindcss/postcss':
+        specifier: 'catalog:'
+        version: 4.3.3
+      '@types/hast':
+        specifier: ^3.0.5
+        version: 3.0.5
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.6.5
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.3.0(@types/react@19.3.0)
+      '@vitejs/plugin-react':
+        specifier: 'catalog:'
+        version: 6.1.2(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+      postcss:
+        specifier: 'catalog:'
+        version: 8.5.30
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.3.3
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vite:
+        specifier: 'catalog:'
+        version: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)
+
+  apps/web:
+    dependencies:
+      '@mantine/hooks':
+        specifier: 'catalog:'
+        version: 9.7.2(react@19.3.1)
+      '@planet/markdown':
+        specifier: workspace:*
+        version: link:../../packages/markdown
+      '@planet/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+      '@rybbit/js':
+        specifier: ^0.6.3
+        version: 0.6.3
+      '@tanstack/react-router':
+        specifier: 'catalog:'
+        version: 1.170.44(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@tanstack/react-start':
+        specifier: 'catalog:'
+        version: 1.169.2(esbuild@0.28.2)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(rolldown@1.2.14)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+      clsx:
+        specifier: 'catalog:'
+        version: 2.1.1
+      misans:
+        specifier: 'catalog:'
+        version: 5.0.0
+      motion:
+        specifier: 'catalog:'
+        version: 14.3.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.3.1(react@19.3.1)
+      tailwind-merge:
+        specifier: 'catalog:'
+        version: 3.7.0
+    devDependencies:
+      '@cloudflare/vite-plugin':
+        specifier: ^1.64.0
+        version: 1.64.0(@types/node@26.6.5)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(wrangler@4.151.0(@types/node@26.6.5))
+      '@tailwindcss/postcss':
+        specifier: 'catalog:'
+        version: 4.3.3
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.6.5
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.3.0(@types/react@19.3.0)
+      '@vitejs/plugin-react':
+        specifier: 'catalog:'
+        version: 6.1.2(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+      postcss:
+        specifier: 'catalog:'
+        version: 8.5.30
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.3.3
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vite:
+        specifier: 'catalog:'
+        version: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)
+      wrangler:
+        specifier: ^4.151.0
+        version: 4.151.0(@types/node@26.6.5)
+
+  packages/markdown:
     dependencies:
       '@chinese-fonts/maple-mono-cn':
         specifier: ^2.0.0
         version: 2.0.0
       '@mantine/hooks':
-        specifier: ^9.7.2
+        specifier: 'catalog:'
         version: 9.7.2(react@19.3.1)
-      '@rybbit/js':
-        specifier: ^0.6.3
-        version: 0.6.3
       '@shikijs/langs':
         specifier: ^4.5.0
         version: 4.5.0
       '@shikijs/themes':
         specifier: ^4.5.0
         version: 4.5.0
-      '@tanstack/react-router':
-        specifier: ^1.170.44
-        version: 1.170.44(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      '@tanstack/react-start':
-        specifier: ^1.169.2
-        version: 1.169.2(esbuild@0.28.2)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(rolldown@1.2.14)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
       clsx:
-        specifier: ^2.1.1
+        specifier: 'catalog:'
         version: 2.1.1
       entities:
         specifier: ^8.1.0
@@ -50,18 +238,9 @@ importers:
       mermaid:
         specifier: ^12.2.0
         version: 12.2.0
-      misans:
-        specifier: ^5.0.0
-        version: 5.0.0
       motion:
-        specifier: ^14.3.0
+        specifier: 'catalog:'
         version: 14.3.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      react:
-        specifier: ^19.3.1
-        version: 19.3.1
-      react-dom:
-        specifier: ^19.3.1
-        version: 19.3.1(react@19.3.1)
       rehype-raw:
         specifier: ^7.0.0
         version: 7.0.0
@@ -87,7 +266,7 @@ importers:
         specifier: ^16.35.0
         version: 16.35.0
       tailwind-merge:
-        specifier: ^3.7.0
+        specifier: 'catalog:'
         version: 3.7.0
       unified:
         specifier: ^11.0.5
@@ -102,60 +281,42 @@ importers:
         specifier: ^2.9.1
         version: 2.9.1
     devDependencies:
-      '@cloudflare/vite-plugin':
-        specifier: ^1.64.0
-        version: 1.64.0(@types/node@26.6.5)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(wrangler@4.151.0(@types/node@26.6.5))
-      '@tailwindcss/postcss':
-        specifier: ^4.3.3
-        version: 4.3.3
-      '@tailwindcss/typography':
-        specifier: ^0.5.20
-        version: 0.5.20(tailwindcss@4.3.3)
       '@types/hast':
         specifier: ^3.0.5
         version: 3.0.5
       '@types/mdast':
         specifier: ^4.0.4
         version: 4.0.4
-      '@types/node':
-        specifier: ^26.6.5
-        version: 26.6.5
       '@types/react':
-        specifier: ^19.3.0
+        specifier: 'catalog:'
         version: 19.3.0
       '@types/react-dom':
-        specifier: ^19.3.0
+        specifier: 'catalog:'
         version: 19.3.0(@types/react@19.3.0)
       '@types/unist':
         specifier: ^3.0.3
         version: 3.0.3
-      '@vitejs/plugin-react':
-        specifier: ^6.1.2
-        version: 6.1.2(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.3.1(react@19.3.1)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+
+  packages/theme:
+    dependencies:
+      '@tailwindcss/typography':
+        specifier: ^0.5.20
+        version: 0.5.20(tailwindcss@4.3.3)
       daisyui:
         specifier: ^5.7.50
         version: 5.7.50
-      oxfmt:
-        specifier: ^0.73.0
-        version: 0.73.0
-      oxlint:
-        specifier: ^1.88.0
-        version: 1.88.0
-      postcss:
-        specifier: ^8.5.30
-        version: 8.5.30
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3
-      typescript:
-        specifier: ^7.0.2
-        version: 7.0.2
-      vite:
-        specifier: ^8.3.4
-        version: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)
-      wrangler:
-        specifier: ^4.151.0
-        version: 4.151.0(@types/node@26.6.5)
 
 packages:
 

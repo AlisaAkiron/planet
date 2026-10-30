@@ -1,5 +1,8 @@
 {
   "files.associations": {
-    "tailwind.css": "tailwindcss"
+    "tailwind.css": "tailwindcss",
+    "**/packages/theme/src/theme.css": "tailwindcss",
+    "**/packages/markdown/src/styles/markdown.css": "tailwindcss",
+    "**/apps/preview/src/styles.css": "tailwindcss"
   }
 }

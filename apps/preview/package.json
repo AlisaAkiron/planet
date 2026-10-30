@@ -1,0 +1,41 @@
+{
+  "name": "@planet/preview",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Self-hosted live preview of Planet's renderer for editors (Obsidian).",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./protocol": "./src/protocol.ts"
+  },
+  "scripts": {
+    "dev": "vite dev --port 5174",
+    "dev:static": "PREVIEW_TARGET=static vite dev --port 5175",
+    "build": "vite build && tsc --noEmit",
+    "build:static": "PREVIEW_TARGET=static vite build",
+    "start": "node dist/server/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@planet/markdown": "workspace:*",
+    "@planet/theme": "workspace:*",
+    "@tanstack/react-router": "catalog:",
+    "@tanstack/react-start": "catalog:",
+    "misans": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "srvx": "^1.0.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "catalog:",
+    "@types/hast": "^3.0.5",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "postcss": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

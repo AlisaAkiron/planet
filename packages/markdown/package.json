@@ -1,0 +1,64 @@
+{
+  "name": "@planet/markdown",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Planet's markdown renderer: the unified pipeline (server) and the React view (client).",
+  "license": "MIT",
+  "type": "module",
+  "imports": {
+    "#shiki-wasm": {
+      "workerd": "./src/shiki-wasm/workerd.ts",
+      "default": "./src/shiki-wasm/default.ts"
+    }
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./config": "./src/config.ts",
+    "./react": "./src/react/index.ts",
+    "./styles.css": "./src/styles/markdown.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@chinese-fonts/maple-mono-cn": "^2.0.0",
+    "@mantine/hooks": "catalog:",
+    "@shikijs/langs": "^4.5.0",
+    "@shikijs/themes": "^4.5.0",
+    "clsx": "catalog:",
+    "entities": "^8.1.0",
+    "github-slugger": "^2.0.0",
+    "hast-util-to-jsx-runtime": "^2.3.6",
+    "hast-util-to-string": "^3.0.1",
+    "katex": "^0.19.0",
+    "mermaid": "^12.2.0",
+    "motion": "catalog:",
+    "rehype-raw": "^7.0.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^4.5.0",
+    "simple-icons": "^16.35.0",
+    "tailwind-merge": "catalog:",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0",
+    "vfile": "^6.0.3",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.5",
+    "@types/mdast": "^4.0.4",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/unist": "^3.0.3",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

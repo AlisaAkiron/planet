@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+@import '@planet/theme/theme.css';
+
+/* Theme *mode* (the stored choice, incl. auto) — set on <html> pre-paint by
+   the head script in routes/__root.tsx and kept current by ThemeProvider.
+   Lets ThemeSwitch show the active mode without theme-dependent SSR markup. */
+@custom-variant theme-light (&:where([data-theme-mode=light] *));
+@custom-variant theme-auto (&:where([data-theme-mode=auto] *));
+@custom-variant theme-dark (&:where([data-theme-mode=dark] *));
+
+/* TanStack Router puts aria-current="page" on the <Link> for the current
+   route, and DaisyUI fills any .btn with aria-current as "selected". A link
+   to the current page isn't a pressed button, so revert that fill: DaisyUI
+   stacks .btn variants (l3) < selected state (l2) < hover/active (l1), and
+   revert-layer from inside l2 falls back to whatever the variant (ghost,
+   primary, …) set, leaving hover and press feedback untouched. Opt back in
+   per link with activeProps={{ className: 'btn-active' }}. */
+@layer utilities {
+  @layer daisyui.l1.l2 {
+    a.btn[aria-current='page']:not(
+        .btn-active,
+        [aria-pressed='true'],
+        [aria-checked='true']
+      ) {
+      --btn-bg: revert-layer;
+      --btn-border: revert-layer;
+      --btn-border-style: revert-layer;
+      --btn-inset: revert-layer;
+      --btn-shadow: revert-layer;
+      color: revert-layer;
+      isolation: revert-layer;
+    }
+  }
+}
+
+/* Anchor jumps glide site-wide (headings, footnotes, ToC links, …) */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Theme-switch circular reveal, scoped via view transition types so only
+   theme changes get it. ThemeSwitch sets the --theme-transition-* vars on
+   the root and starts a 'theme-change' transition; the default cross-fade
+   is disabled because it would wash out the expanding circle's edge. */
+:active-view-transition-type(theme-change)::view-transition-old(root),
+:active-view-transition-type(theme-change)::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+:active-view-transition-type(theme-change)::view-transition-new(root) {
+  clip-path: circle(
+    0px at var(--theme-transition-x, 50%) var(--theme-transition-y, 50%)
+  );
+  animation: theme-reveal 0.5s ease-out forwards;
+}
+
+@keyframes theme-reveal {
+  to {
+    clip-path: circle(
+      var(--theme-transition-radius, 100vmax) at var(--theme-transition-x, 50%)
+        var(--theme-transition-y, 50%)
+    );
+  }
+}
