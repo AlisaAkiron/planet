@@ -5,8 +5,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 5173",
-    "build": "vite build && tsc -b --noEmit",
+    "dev": "pnpm --filter @planet/theme build && vite dev --port 5173",
+    "build": "pnpm --filter @planet/theme build && vite build && tsc -b --noEmit",
     "preview": "vite preview",
     "deploy": "pnpm build && wrangler deploy",
     "cf-typegen": "wrangler types --include-env false",
@@ -20,7 +20,6 @@
     "@tanstack/react-router": "catalog:",
     "@tanstack/react-start": "catalog:",
     "clsx": "catalog:",
-    "misans": "catalog:",
     "motion": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",

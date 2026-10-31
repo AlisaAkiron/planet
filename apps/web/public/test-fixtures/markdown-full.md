@@ -67,34 +67,34 @@ single newline stays in the same paragraph.
 
 ## Multilingual 多语言 CJK
 
-### 简体中文
+### <span lang="zh-Hans">简体中文</span>
 
-这段文字用于测试简体中文的渲染效果。支持**加粗**、_斜体_、~~删除线~~、
+<span lang="zh-Hans">这段文字用于测试简体中文的渲染效果。支持**加粗**、_斜体_、~~删除线~~、
 `行内代码`以及[链接](https://example.com)。中文标点符号（、。「」《》——……）
-应当与西文标点 (like this) 正常混排，全角与半角间距不应错乱。
+应当与西文标点 (like this) 正常混排，全角与半角间距不应错乱。</span>
 
-已知的 CommonMark CJK 强调边界情况：这是**加粗，**接着普通文本——闭合分隔符
-紧跟全角逗号时可能无法解析为加粗，此行用于确认实际行为。
+<span lang="zh-Hans">已知的 CommonMark CJK 强调边界情况：这是**加粗，**接着普通文本——闭合分隔符
+紧跟全角逗号时可能无法解析为加粗，此行用于确认实际行为。</span>
 
-### 繁體中文
+### <span lang="zh-Hant">繁體中文</span>
 
-這段文字用於測試繁體中文。支援**粗體**、_斜體_與`程式碼`，以及
+<span lang="zh-Hant">這段文字用於測試繁體中文。支援**粗體**、_斜體_與`程式碼`，以及
 [連結](https://example.com)。引號使用「單層」與『雙層』，
-數學符號如 $\pi \approx 3.14159$ 可與內文混排。
+數學符號如 $\pi \approx 3.14159$ 可與內文混排。</span>
 
-### 日本語
+### <span lang="ja">日本語</span>
 
-日本語のレンダリングテストです。漢字・ひらがな・カタカナ（ラーメン🍜）が
+<span lang="ja">日本語のレンダリングテストです。漢字・ひらがな・カタカナ（ラーメン🍜）が
 混在し、**太字**、_斜体_、`コード`、[リンク](https://example.com)を含みます。
-長音符「ー」と約物（、。「」・…）の組版も確認します。
+長音符「ー」と約物（、。「」・…）の組版も確認します。</span>
 
 ### Mixed Scripts 混排
 
-Testing 混排：English 与中文、日本語のカタカナ（テスト）、emoji 🎏,
+Testing 混排：English 与中文、<span lang="ja">日本語のカタカナ（テスト）</span>、emoji 🎏,
 `inline_code`, **粗体加粗**, _italic_ — all in one line, with
 full-width（括号）and half-width (parens) side by side.
 
-> 中文引用：包含日本語「引用文」in a single blockquote.
+> 中文引用：包含日本語「<span lang="ja">引用文</span>」in a single blockquote.
 
 ## Block Elements 块级元素
 

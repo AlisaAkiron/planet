@@ -42,9 +42,9 @@
   --tw-prose-td-borders: var(--color-base-300);
 }
 
-/* Typography's literal weights are on the web scale, but MiSans VF's axis
-   is its internal one (tailwind.css), where 700+ renders Heavy. Restate
-   them on the tokens, keeping headings and bold text on Bold. Unlayered,
+/* Typography's literal weights are on the web scale, but the site's
+   weights are the MiSans-matched tokens (theme.css). Restate them on the
+   tokens, keeping headings and bold text on Bold. Unlayered,
    so these beat the plugin's utilities layer; the :where() keeps them at
    the same specificity. Code and kbd are Maple Mono (static, normal
    scale) and keep the plugin's weights. */

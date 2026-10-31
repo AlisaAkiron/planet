@@ -33,6 +33,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # The Noto Sans CJK slices take minutes to download and build; the key
+      # covers everything that decides their contents.
+      - name: Cache Noto Sans CJK slices
+        uses: actions/cache@v4
+        with:
+          path: packages/theme/generated
+          key: noto-sans-${{ hashFiles('packages/theme/scripts/**') }}
+
       - name: Lint code
         run: pnpm lint
 

@@ -34,3 +34,6 @@ docs/
 *.njsproj
 *.sln
 *.sw?
+
+# Noto Sans CJK slices, built by packages/theme/scripts/build-fonts.mjs
+packages/theme/generated

@@ -12,17 +12,13 @@ import { DefaultLayout } from '@/layout/DefaultLayout'
 import { RybbitProvider } from '@/providers/RybbitProvider'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import appCss from '@/styles/index.css?url'
-// Site-wide text face, through Vite (not the Tailwind pipeline) so the
-// font url()s get rebased and the woff2 files land in the build. One
-// variable font instead of three static weights: its CSS is a third the
-// size on the critical path. Its weight axis is MiSans' internal
-// usWeightClass (150-700), so styles/tailwind.css remaps the weight tokens.
-import 'misans/lib/Normal/MiSansVF.min.css'
-// The Basic Latin slice (~50 KB, slice 50 = U+21-7E, U+A0-108) is
-// preloaded below. Slice names are content-hashed, so this must be
-// re-copied from node_modules/misans/lib/Normal on every misans bump (a
-// stale name fails the build).
-import misansLatin from 'misans/lib/Normal/MiSansVF.3ee7f36171786397.50.woff2?url'
+// Site-wide text face (Noto Sans CJK, per-language families), through Vite
+// (not the Tailwind pipeline) so the font url()s get rebased and the woff2
+// files land in the build. @planet/theme builds the faces before dev/build.
+import '@planet/theme/fonts.css'
+// The default family's Latin slice (~60 KB, variable, Basic Latin +
+// Latin-1) is preloaded below.
+import notoLatin from '@planet/theme/fonts/noto-sans-sc-latin.woff2?url'
 
 // Applies the persisted theme before first paint so a stored choice that
 // differs from the OS preference doesn't flash the wrong theme. data-theme
@@ -51,7 +47,7 @@ export const Route = createRootRoute({
         rel: 'preload',
         as: 'font',
         type: 'font/woff2',
-        href: misansLatin,
+        href: notoLatin,
         crossOrigin: 'anonymous',
       },
       { rel: 'stylesheet', href: appCss },

@@ -12,7 +12,6 @@ catalog:
   '@types/react-dom': ^19.3.0
   '@vitejs/plugin-react': ^6.1.2
   clsx: ^2.1.1
-  misans: ^5.0.0
   motion: ^14.3.0
   postcss: ^8.5.30
   react-dom: ^19.3.1

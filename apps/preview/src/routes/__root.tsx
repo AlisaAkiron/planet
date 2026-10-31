@@ -4,7 +4,7 @@ import { staticConfig } from '../config'
 import { getPreviewConfig } from '../server/functions'
 import appCss from '../styles.css?url'
 // Same text face as the site; see apps/web/src/routes/__root.tsx.
-import 'misans/lib/Normal/MiSansVF.min.css'
+import '@planet/theme/fonts.css'
 
 // Pre-paint OS theme, so a dark editor doesn't flash a light page before
 // the first render message arrives (which may then override it).

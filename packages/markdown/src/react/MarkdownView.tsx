@@ -2,8 +2,9 @@ import { toJsxRuntime } from 'hast-util-to-jsx-runtime'
 import { useMemo } from 'react'
 import { Fragment, jsx, jsxs } from 'react/jsx-runtime'
 // Through Vite (not the Tailwind pipeline) so the font url()s get rebased
-// and the woff2 files land in the build. Each app loads MiSans itself
-// (it is the whole page's face); only the markdown-scoped faces live here.
+// and the woff2 files land in the build. Each app loads the text face
+// itself (@planet/theme/fonts.css, the whole page's face); only the
+// markdown-scoped faces live here.
 import 'katex/dist/katex.min.css'
 // Regular + Italic + Medium + Bold cover everything the content uses:
 // shiki (catppuccin) emits italic and bold tokens, inline code chips are 500.

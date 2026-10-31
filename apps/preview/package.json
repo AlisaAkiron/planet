@@ -9,10 +9,10 @@
     "./protocol": "./src/protocol.ts"
   },
   "scripts": {
-    "dev": "vite dev --port 5174",
-    "dev:static": "PREVIEW_TARGET=static vite dev --port 5175",
-    "build": "vite build && tsc --noEmit",
-    "build:static": "PREVIEW_TARGET=static vite build",
+    "dev": "pnpm --filter @planet/theme build && vite dev --port 5174",
+    "dev:static": "pnpm --filter @planet/theme build && PREVIEW_TARGET=static vite dev --port 5175",
+    "build": "pnpm --filter @planet/theme build && vite build && tsc --noEmit",
+    "build:static": "pnpm --filter @planet/theme build && PREVIEW_TARGET=static vite build",
     "start": "node dist/server/server.js",
     "typecheck": "tsc --noEmit"
   },
@@ -21,7 +21,6 @@
     "@planet/theme": "workspace:*",
     "@tanstack/react-router": "catalog:",
     "@tanstack/react-start": "catalog:",
-    "misans": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "srvx": "^1.0.5"

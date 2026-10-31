@@ -6,11 +6,20 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    "./theme.css": "./src/theme.css"
+    "./theme.css": "./src/theme.css",
+    "./fonts.css": "./generated/fonts.css",
+    "./fonts/*": "./generated/*"
+  },
+  "scripts": {
+    "build": "node scripts/build-fonts.mjs"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.20",
     "daisyui": "^5.7.50"
+  },
+  "devDependencies": {
+    "fontverter": "^2.0.0",
+    "subset-font": "^2.9.0"
   },
   "peerDependencies": {
     "tailwindcss": "^4.3.3"
